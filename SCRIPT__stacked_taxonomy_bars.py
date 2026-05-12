@@ -456,19 +456,27 @@ def draw_stacked_barh(
 ) -> None:
     color_map = build_color_map(df.columns, rank, category_keys, class_color_map)
     left = pd.Series(0.0, index=df.index)
+    y_labels = list(df.index)
+    y_step = 0.82
+    y_positions = [i * y_step for i in range(len(y_labels))]
+    bar_height = 0.64
 
     for category in df.columns:
         values = df[category]
         ax.barh(
-            df.index,
-            values,
-            left=left,
+            y_positions,
+            values.values,
+            left=left.values,
             label=category,
             color=color_map[category],
             edgecolor="white",
-            linewidth=0.5,
+            linewidth=1.0,
+            height=bar_height,
         )
         left += values
+
+    ax.set_yticks(y_positions)
+    ax.set_yticklabels(y_labels)
 
     ax.set_xlabel("Relative abundance (%)")
     ax.set_xlim(0, 100)
@@ -479,12 +487,29 @@ def draw_stacked_barh(
     legend_fontsize = float(plt.rcParams.get("font.size", 10.0)) * (2.0 / 3.0)
     legend_labelspacing = 0.5 * (2.0 / 3.0)
 
+    labels = [str(label) for label in df.columns]
+    avg_len = sum(len(label) for label in labels) / len(labels) if labels else 0.0
+    outlier_cutoff = max(12, int(round(avg_len * 1.4)))
+    truncate_to = max(10, int(round(avg_len * 1.2)))
+
+    abbreviated_labels = []
+    for label in labels:
+        if len(label) > outlier_cutoff:
+            abbreviated_labels.append(label[:truncate_to].rstrip() + "...")
+        else:
+            abbreviated_labels.append(label)
+
+    handles, _ = ax.get_legend_handles_labels()
+
     ax.legend(
+        handles,
+        abbreviated_labels,
         bbox_to_anchor=(1.02, 1),
         loc="upper left",
         frameon=False,
         fontsize=legend_fontsize,
         labelspacing=legend_labelspacing,
+        ncol=2,
     )
 
 
@@ -498,7 +523,7 @@ def plot_stacked_rank_panels(
         raise ValueError("No rank results available for plotting.")
 
     sample_count = max(len(df) for _, df, _ in rank_results)
-    panel_height = max(3.5, 0.5 * sample_count)
+    panel_height = max(3.5, 0.5 * sample_count) * 0.85
     fig_height = panel_height * len(rank_results)
 
     fig, axes = plt.subplots(
