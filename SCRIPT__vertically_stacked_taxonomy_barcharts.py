@@ -523,7 +523,7 @@ def plot_stacked_rank_panels(
         raise ValueError("No rank results available for plotting.")
 
     sample_count = max(len(df) for _, df, _ in rank_results)
-    panel_height = max(3.5, 0.5 * sample_count) * 0.85
+    panel_height = max(3.5, 0.5 * sample_count) * 0.64
     fig_height = panel_height * len(rank_results)
 
     fig, axes = plt.subplots(
@@ -545,7 +545,14 @@ def plot_stacked_rank_panels(
             class_color_map=class_color_map,
         )
 
-    plt.tight_layout()
+    fig.suptitle(
+        "(a) Genetic composition based on 16S rRNA sequences",
+        fontsize=14,
+        fontweight="bold",
+        x=0.01,
+        ha="left",
+    )
+    plt.tight_layout(rect=(0, 0, 1, 0.97))
 
     fig.savefig(output_prefix.with_suffix(".svg"), bbox_inches="tight")
     fig.savefig(output_prefix.with_suffix(".png"), dpi=300, bbox_inches="tight")
