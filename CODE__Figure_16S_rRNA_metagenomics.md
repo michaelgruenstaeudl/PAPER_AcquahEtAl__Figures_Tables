@@ -9,7 +9,6 @@ OUTDIR="VIZ__Figure_16S_rRNA_metagenomics"
 
 python SCRIPT__vertically_stacked_taxonomy_barcharts.py \
     $DATDIR/ \
-    -r c \
     -o $OUTDIR/Fig_16S_rRNA_metagenomics \
     -t 1 \
     --metadata $DATDIR/metadata__genus-table.csv
@@ -60,18 +59,27 @@ scale2 = target_width / w2
 
 new_h1 = h1 * scale1
 new_h2 = h2 * scale2
+title_band = 30
 
-combined_svg = "${OUTDIR}/combined.svg"
-combined_png = "${OUTDIR}/combined.png"
+section1_y = 0
+section1_image_y = section1_y + title_band
+
+section2_y = section1_image_y + new_h1
+section2_image_y = section2_y + title_band
+
+combined_height = section2_image_y + new_h2
+
+combined_svg = "${OUTDIR}/Fig_16S_rRNA__combined.svg"
+combined_png = "${OUTDIR}/Fig_16S_rRNA__combined.png"
 
 Figure(
     f"{target_width}px",
-    f"{new_h1 + new_h2}px",
+    f"{combined_height}px",
 
-    SVG(svg1).scale(scale1).move(0, 0),
-    SVG(svg2).scale(scale2).move(0, new_h1),
-    Text("(a) Genetic composition", 12, 26, size=16, weight="bold"),
-    Text("(b) Diversity indices", 12, new_h1 + 26, size=16, weight="bold")
+    SVG(svg1).scale(scale1).move(0, section1_image_y),
+    SVG(svg2).scale(scale2).move(0, section2_image_y),
+    Text("(a) Genetic composition", 12, section1_y + 22, size=16, weight="bold"),
+    Text("(b) Diversity indices", 12, section2_y + 22, size=16, weight="bold")
 
 ).save(combined_svg)
 
@@ -79,6 +87,3 @@ cairosvg.svg2png(url=combined_svg, write_to=combined_png)
 
 PY
 ```
-
-![Combined figure](VIZ__Figure_16S_rRNA_metagenomics/combined.png)
-Figure: Combined metagenomic panels (genetic composition and diversity indices)

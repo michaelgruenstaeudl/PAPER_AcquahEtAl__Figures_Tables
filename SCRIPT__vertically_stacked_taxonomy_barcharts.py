@@ -545,14 +545,7 @@ def plot_stacked_rank_panels(
             class_color_map=class_color_map,
         )
 
-    fig.suptitle(
-        "(a) Genetic composition based on 16S rRNA sequences",
-        fontsize=14,
-        fontweight="bold",
-        x=0.01,
-        ha="left",
-    )
-    plt.tight_layout(rect=(0, 0, 1, 0.97))
+    plt.tight_layout()
 
     fig.savefig(output_prefix.with_suffix(".svg"), bbox_inches="tight")
     fig.savefig(output_prefix.with_suffix(".png"), dpi=300, bbox_inches="tight")
