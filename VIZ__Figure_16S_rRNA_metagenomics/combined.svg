@@ -5062,5 +5062,7 @@
   </clipPath>
  </defs>
 </g>
+    <text x="12" y="26" font-size="22" font-family="Verdana" font-weight="bold" letter-spacing="0" text-anchor="start" fill="black">(a) Genetic composition</text>
+    <text x="12" y="596.0361149904269" font-size="22" font-family="Verdana" font-weight="bold" letter-spacing="0" text-anchor="start" fill="black">(b) Diversity indices</text>
   </g>
 </svg>

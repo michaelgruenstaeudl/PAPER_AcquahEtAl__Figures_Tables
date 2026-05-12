@@ -32,12 +32,14 @@ python SCRIPT__horizontally_stacked_diversity_index_barcharts.py \
 
 ```bash
 pip install svgutils
+pip install cairosvg
 
 OUTDIR="VIZ__Figure_16S_rRNA_metagenomics"
 
 python - <<PY
-from svgutils.compose import Figure, SVG
+from svgutils.compose import Figure, SVG, Text
 import xml.etree.ElementTree as ET
+import cairosvg
 
 def get_size(svgfile):
     root = ET.parse(svgfile).getroot()
@@ -59,14 +61,24 @@ scale2 = target_width / w2
 new_h1 = h1 * scale1
 new_h2 = h2 * scale2
 
+combined_svg = "${OUTDIR}/combined.svg"
+combined_png = "${OUTDIR}/combined.png"
+
 Figure(
     f"{target_width}px",
     f"{new_h1 + new_h2}px",
 
     SVG(svg1).scale(scale1).move(0, 0),
-    SVG(svg2).scale(scale2).move(0, new_h1)
+    SVG(svg2).scale(scale2).move(0, new_h1),
+    Text("(a) Genetic composition", 12, 26, size=16, weight="bold"),
+    Text("(b) Diversity indices", 12, new_h1 + 26, size=16, weight="bold")
 
-).save("${OUTDIR}/combined.svg")
+).save(combined_svg)
+
+cairosvg.svg2png(url=combined_svg, write_to=combined_png)
 
 PY
 ```
+
+![Combined figure](VIZ__Figure_16S_rRNA_metagenomics/combined.png)
+Figure: Combined metagenomic panels (genetic composition and diversity indices)
