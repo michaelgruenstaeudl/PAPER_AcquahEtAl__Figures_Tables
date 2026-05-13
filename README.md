@@ -7,5 +7,7 @@ The analysis files of the data visualized here can be found on [Zenodo.org](http
 ### Visualizations
 
 #### Figure: 16S rRNA metagenomics
+The code for creating the following figure is displayed [here](CODE__Figure_16S_rRNA_metagenomics.md).
+
 ![Combined figure](VIZ__Figure_16S_rRNA_metagenomics/Fig_16S_rRNA__combined.png)
 
