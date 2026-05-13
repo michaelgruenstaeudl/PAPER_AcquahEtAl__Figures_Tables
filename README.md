@@ -11,3 +11,8 @@ The code for creating the following figure is displayed [here](CODE__Figure_16S_
 
 ![Combined figure](VIZ__Figure_16S_rRNA_metagenomics/Fig_16S_rRNA__combined.png)
 
+
+#### Figure: Genomic inversion testing
+The code for creating the following figure is displayed [here](CODE__Genomic_inversion_testing.md).
+
+![Combined figure](VIZ__Figure_Genomic_inversion_testing/Fig_Genomic_inversion_testing_SCHEMATIC.png)
