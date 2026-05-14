@@ -4,7 +4,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import matplotlib.patheffects as pe
-from matplotlib.patches import Polygon, FancyArrowPatch
+from matplotlib.patches import Polygon, FancyArrowPatch, Rectangle, FancyBboxPatch
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -35,7 +35,6 @@ PRIMER_HEIGHT = 5
 PRIMER_WIDTH = 14
 PRIMER_NOTCH = 2
 PRIMER_OFFSET = 7.2
-PRIMER_NAME_GAP = 2
 PRIMER_EDGE_SHIFT_X = 8
 GENOME_OVERHANG_EXTENSION = 3
 GENOME_LEFT_OVERHANG_EXTRA = 2
@@ -149,28 +148,366 @@ def draw_curved_arrow(ax, start, end, rad, color=BLACK):
     ax.add_patch(arrow)
 
 
-def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
-    """Draw gel electrophoresis visualization for original genome state.
-    
-    Placeholder function to be filled with actual gel electrophoresis visualization.
-    """
-    from matplotlib.patches import Rectangle
-    
-    gel_rect = Rectangle((gel_start_x, y - gel_height / 2), gel_width, gel_height, 
-                           edgecolor=BLACK, facecolor="#f7f2e8", lw=1.2)
+def draw_electrophoresis_placeholder(ax, y, gel_start_x, gel_width, gel_height):
+    gel_rect = Rectangle(
+        (gel_start_x, y - gel_height / 2),
+        gel_width,
+        gel_height,
+        edgecolor=BLACK,
+        facecolor="#f7f2e8",
+        lw=1.2,
+    )
     ax.add_patch(gel_rect)
+
+
+def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
+    """Draw gel electrophoresis visualization for original (ancestral) genome state."""
+
+    # Position gel centered around y (genome row)
+    gel_bottom = y - gel_height / 2
+
+    # ----------------------------------------
+    # Colors
+    # ----------------------------------------
+    gel_fill = "#f3e2c5"
+    gel_edge = "#9b8060"
+    well_fill = "#ead7b8"
+    band_color = "#2b2924"
+
+    # ----------------------------------------
+    # Main gel body
+    # ----------------------------------------
+    gel = FancyBboxPatch(
+        (gel_start_x, gel_bottom),
+        gel_width,
+        gel_height,
+        boxstyle="round,pad=0.01,rounding_size=0.6",
+        linewidth=1.2,
+        edgecolor=gel_edge,
+        facecolor=gel_fill,
+        zorder=1,
+    )
+    ax.add_patch(gel)
+
+    inner_margin = gel_width * 0.01
+
+    inner_gel = FancyBboxPatch(
+        (gel_start_x + inner_margin, gel_bottom + inner_margin),
+        gel_width - 2 * inner_margin,
+        gel_height - 2 * inner_margin,
+        boxstyle="round,pad=0.005,rounding_size=0.4",
+        linewidth=0.5,
+        edgecolor=gel_edge,
+        facecolor="none",
+        zorder=2,
+    )
+    ax.add_patch(inner_gel)
+
+    # ----------------------------------------
+    # Lane positions
+    # ----------------------------------------
+    lane_count = 7
+    lane_spacing = gel_width / (lane_count + 1)
+
+    lane_x = [
+        gel_start_x + lane_spacing * (i + 1)
+        for i in range(lane_count)
+    ]
+
+    # ----------------------------------------
+    # Wells
+    # ----------------------------------------
+    well_y = gel_bottom + gel_height * 0.92
+    well_w = gel_width * 0.07
+    well_h = gel_height * 0.035
+
+    for i, x in enumerate(lane_x, start=1):
+        # Outer well
+        ax.add_patch(
+            FancyBboxPatch(
+                (x - well_w / 2, well_y),
+                well_w,
+                well_h,
+                boxstyle="round,pad=0.01,rounding_size=0.15",
+                linewidth=0.8,
+                edgecolor=gel_edge,
+                facecolor=well_fill,
+                zorder=3,
+            )
+        )
+
+        # Inner depression
+        ax.add_patch(
+            Rectangle(
+                (
+                    x - well_w / 2 + well_w * 0.08,
+                    well_y + well_h * 0.18,
+                ),
+                well_w * 0.84,
+                well_h * 0.64,
+                linewidth=0.4,
+                edgecolor=gel_edge,
+                facecolor="#f4e7ce",
+                zorder=4,
+            )
+        )
+
+    # ----------------------------------------
+    # Helper function for bands
+    # ----------------------------------------
+    def draw_band(x, rel_y, width_scale=1.0, height_scale=1.0, alpha=0.95):
+        band_w = gel_width * 0.055 * width_scale
+        band_h = gel_height * 0.015 * height_scale
+
+        band_y = gel_bottom + gel_height * rel_y
+
+        # Main band
+        ax.add_patch(
+            FancyBboxPatch(
+                (x - band_w / 2, band_y - band_h / 2),
+                band_w,
+                band_h,
+                boxstyle="round,pad=0.01,rounding_size=0.12",
+                linewidth=0,
+                facecolor=band_color,
+                alpha=alpha,
+                zorder=5,
+            )
+        )
+
+        # Slight darker center
+        ax.add_patch(
+            FancyBboxPatch(
+                (
+                    x - band_w / 2 + band_w * 0.03,
+                    band_y - band_h / 2 + band_h * 0.18,
+                ),
+                band_w * 0.94,
+                band_h * 0.64,
+                boxstyle="round,pad=0.003,rounding_size=0.08",
+                linewidth=0,
+                facecolor="black",
+                alpha=0.25,
+                zorder=6,
+            )
+        )
+
+    # ----------------------------------------
+    # NEB low molecular weight ladder
+    # ----------------------------------------
+    ladder_rel_y = {
+        1517: 0.78,
+        1200: 0.71,
+        1000: 0.64,
+        900: 0.58,
+        700: 0.52,
+        600: 0.46,
+        500: 0.39,
+        300: 0.28,
+        200: 0.18,
+    }
+
+    for bp, rel_y in ladder_rel_y.items():
+        if bp in (500, 1000):
+            draw_band(lane_x[0], rel_y, width_scale=1.0, height_scale=1.2)
+        else:
+            draw_band(lane_x[0], rel_y, width_scale=1.0, height_scale=0.9)
+
+    # ----------------------------------------
+    # Sample lanes: 1, 2, 3 identical to lower gel; 4, 5 empty; 6, 7 have distinct bands
+    # ----------------------------------------
+
+    # Lane 2: 300 bp
+    draw_band(lane_x[1], ladder_rel_y[300], width_scale=0.95, height_scale=1.3)
+
+    # Lane 3: empty
+
+    # Lane 4: empty
+
+    # Lane 5: empty
+
+    # Lane 6: one band in 600-800 bp range (650 bp, smaller)
+    draw_band(lane_x[5], ladder_rel_y[600], width_scale=0.85, height_scale=1.2)
+
+    # Lane 7: one band in 600-800 bp range (750 bp, larger)
+    draw_band(lane_x[6], ladder_rel_y[700], width_scale=1.05, height_scale=1.35)
 
 
 def electrophoresis_lower_genome(ax, y, gel_start_x, gel_width, gel_height):
-    """Draw gel electrophoresis visualization for inverted genome state.
-    
-    Placeholder function to be filled with actual gel electrophoresis visualization.
-    """
-    from matplotlib.patches import Rectangle
-    
-    gel_rect = Rectangle((gel_start_x, y - gel_height / 2), gel_width, gel_height,
-                           edgecolor=BLACK, facecolor="#f7f2e8", lw=1.2)
-    ax.add_patch(gel_rect)
+    """Draw gel electrophoresis visualization for inverted genome state."""
+
+    # Position gel centered around y (genome row)
+    gel_bottom = y - gel_height / 2
+
+    # ----------------------------------------
+    # Colors
+    # ----------------------------------------
+    gel_fill = "#f3e2c5"
+    gel_edge = "#9b8060"
+    well_fill = "#ead7b8"
+    band_color = "#2b2924"
+
+    # ----------------------------------------
+    # Main gel body
+    # ----------------------------------------
+    gel = FancyBboxPatch(
+        (gel_start_x, gel_bottom),
+        gel_width,
+        gel_height,
+        boxstyle="round,pad=0.01,rounding_size=0.6",
+        linewidth=1.2,
+        edgecolor=gel_edge,
+        facecolor=gel_fill,
+        zorder=1,
+    )
+    ax.add_patch(gel)
+
+    inner_margin = gel_width * 0.01
+
+    inner_gel = FancyBboxPatch(
+        (gel_start_x + inner_margin, gel_bottom + inner_margin),
+        gel_width - 2 * inner_margin,
+        gel_height - 2 * inner_margin,
+        boxstyle="round,pad=0.005,rounding_size=0.4",
+        linewidth=0.5,
+        edgecolor=gel_edge,
+        facecolor="none",
+        zorder=2,
+    )
+    ax.add_patch(inner_gel)
+
+    # ----------------------------------------
+    # Lane positions
+    # ----------------------------------------
+    lane_count = 7
+    lane_spacing = gel_width / (lane_count + 1)
+
+    lane_x = [
+        gel_start_x + lane_spacing * (i + 1)
+        for i in range(lane_count)
+    ]
+
+    # ----------------------------------------
+    # Wells
+    # ----------------------------------------
+    well_y = gel_bottom + gel_height * 0.92
+    well_w = gel_width * 0.07
+    well_h = gel_height * 0.035
+
+    for i, x in enumerate(lane_x, start=1):
+        # Outer well
+        ax.add_patch(
+            FancyBboxPatch(
+                (x - well_w / 2, well_y),
+                well_w,
+                well_h,
+                boxstyle="round,pad=0.01,rounding_size=0.15",
+                linewidth=0.8,
+                edgecolor=gel_edge,
+                facecolor=well_fill,
+                zorder=3,
+            )
+        )
+
+        # Inner depression
+        ax.add_patch(
+            Rectangle(
+                (
+                    x - well_w / 2 + well_w * 0.08,
+                    well_y + well_h * 0.18,
+                ),
+                well_w * 0.84,
+                well_h * 0.64,
+                linewidth=0.4,
+                edgecolor=gel_edge,
+                facecolor="#f4e7ce",
+                zorder=4,
+            )
+        )
+
+    # ----------------------------------------
+    # Helper function for bands
+    # ----------------------------------------
+    def draw_band(x, rel_y, width_scale=1.0, height_scale=1.0, alpha=0.95):
+        band_w = gel_width * 0.055 * width_scale
+        band_h = gel_height * 0.015 * height_scale
+
+        band_y = gel_bottom + gel_height * rel_y
+
+        # Main band
+        ax.add_patch(
+            FancyBboxPatch(
+                (x - band_w / 2, band_y - band_h / 2),
+                band_w,
+                band_h,
+                boxstyle="round,pad=0.01,rounding_size=0.12",
+                linewidth=0,
+                facecolor=band_color,
+                alpha=alpha,
+                zorder=5,
+            )
+        )
+
+        # Slight darker center
+        ax.add_patch(
+            FancyBboxPatch(
+                (
+                    x - band_w / 2 + band_w * 0.03,
+                    band_y - band_h / 2 + band_h * 0.18,
+                ),
+                band_w * 0.94,
+                band_h * 0.64,
+                boxstyle="round,pad=0.003,rounding_size=0.08",
+                linewidth=0,
+                facecolor="black",
+                alpha=0.25,
+                zorder=6,
+            )
+        )
+
+    # ----------------------------------------
+    # NEB low molecular weight ladder
+    #
+    # Fragments:
+    # 1517, 1200, 1000, 900,
+    # 700, 600, 500, 300, 200 bp
+    # ----------------------------------------
+    ladder_rel_y = {
+        1517: 0.78,
+        1200: 0.71,
+        1000: 0.64,
+        900: 0.58,
+        700: 0.52,
+        600: 0.46,
+        500: 0.39,
+        300: 0.28,
+        200: 0.18,
+    }
+
+    for bp, rel_y in ladder_rel_y.items():
+        if bp in (500, 1000):
+            draw_band(lane_x[0], rel_y, width_scale=1.0, height_scale=1.2)
+        else:
+            draw_band(lane_x[0], rel_y, width_scale=1.0, height_scale=0.9)
+
+    # ----------------------------------------
+    # Sample lanes: 1, 2, 3 identical; 4, 5 empty; 6, 7 have distinct bands
+    # ----------------------------------------
+
+    # Lane 2: 300 bp
+    draw_band(lane_x[1], ladder_rel_y[300], width_scale=0.95, height_scale=1.3)
+
+    # Lane 3: empty
+
+    # Lane 4: 300 bp
+    draw_band(lane_x[3], ladder_rel_y[300], width_scale=0.95, height_scale=1.3)
+
+    # Lane 5: band at 900 bp position
+    draw_band(lane_x[4], ladder_rel_y[900], width_scale=0.95, height_scale=1.3)
+
+    # Lane 6: empty
+
+    # Lane 7: empty
 
 
 # ============================================================================
@@ -183,8 +520,10 @@ def create_subplot_left(ax, y_normal, y_inversion):
     ax.axis("off")
 
     genome_start_x = 25 - GENOME_LEFT_OVERHANG_EXTRA
-    left_outer_primer_x = 34 - PRIMER_EDGE_SHIFT_X
-    right_outer_primer_x = 100 + PRIMER_EDGE_SHIFT_X
+    sta_f_x = 34 - PRIMER_EDGE_SHIFT_X
+    end_r_x = 100 + PRIMER_EDGE_SHIFT_X
+    left_outer_primer_x = sta_f_x
+    right_outer_primer_x = end_r_x
     left_overhang = (left_outer_primer_x - genome_start_x) + GENOME_OVERHANG_EXTENSION
     right_overhang = (left_overhang - 1) * GENOME_RIGHT_OVERHANG_SCALE
     genome_end_x = right_outer_primer_x + right_overhang
@@ -226,7 +565,7 @@ def create_subplot_left(ax, y_normal, y_inversion):
     draw_curved_arrow(ax, (x_right - 0.8, y_normal - arrow_genome_offset_y), (x_left + 0.8, y_inversion + arrow_genome_offset_y), rad=-0.2, color=BLUE)
 
     # Normal state primers and primer names
-    primer = draw_primer_polygon(ax, 34 - PRIMER_EDGE_SHIFT_X, y_normal, direction="right", color=YELLOW, stem="up")
+    primer = draw_primer_polygon(ax, sta_f_x, y_normal, direction="right", color=YELLOW, stem="up")
     draw_primer_name(ax, primer, "sta.F")
 
     primer = draw_primer_polygon(ax, inv_start_r_normal_pole_x, y_normal, direction="right", color=YELLOW, stem="up")
@@ -235,11 +574,11 @@ def create_subplot_left(ax, y_normal, y_inversion):
     primer = draw_primer_polygon(ax, inv_end_f_normal_pole_x, y_normal, direction="left", color=RED, stem="down")
     draw_primer_name(ax, primer, "end.F")
 
-    primer = draw_primer_polygon(ax, 100 + PRIMER_EDGE_SHIFT_X, y_normal, direction="left", color=RED, stem="down")
+    primer = draw_primer_polygon(ax, end_r_x, y_normal, direction="left", color=RED, stem="down")
     draw_primer_name(ax, primer, "end.R")
 
     # Inversion state primers and primer names
-    primer = draw_primer_polygon(ax, 34 - PRIMER_EDGE_SHIFT_X, y_inversion, direction="right", color=YELLOW, stem="up")
+    primer = draw_primer_polygon(ax, sta_f_x, y_inversion, direction="right", color=YELLOW, stem="up")
     draw_primer_name(ax, primer, "sta.F")
 
     primer = draw_primer_polygon(ax, inv_start_r_inversion_pole_x, y_inversion, direction="left", color=YELLOW, stem="down")
@@ -248,7 +587,7 @@ def create_subplot_left(ax, y_normal, y_inversion):
     primer = draw_primer_polygon(ax, inv_end_f_inversion_pole_x, y_inversion, direction="right", color=RED, stem="up")
     draw_primer_name(ax, primer, "end.F")
 
-    primer = draw_primer_polygon(ax, 100 + PRIMER_EDGE_SHIFT_X, y_inversion, direction="left", color=RED, stem="down")
+    primer = draw_primer_polygon(ax, end_r_x, y_inversion, direction="left", color=RED, stem="down")
     draw_primer_name(ax, primer, "end.R")
 
 
