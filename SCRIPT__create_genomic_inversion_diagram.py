@@ -162,21 +162,12 @@ def draw_electrophoresis_placeholder(ax, y, gel_start_x, gel_width, gel_height):
 
 def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
     """Draw gel electrophoresis visualization for original (ancestral) genome state."""
-
-    # Position gel centered around y (genome row)
     gel_bottom = y - gel_height / 2
 
-    # ----------------------------------------
-    # Colors
-    # ----------------------------------------
     gel_fill = "#f3e2c5"
     gel_edge = "#9b8060"
     well_fill = "#ead7b8"
     band_color = "#2b2924"
-
-    # ----------------------------------------
-    # Main gel body
-    # ----------------------------------------
     gel = FancyBboxPatch(
         (gel_start_x, gel_bottom),
         gel_width,
@@ -258,10 +249,8 @@ def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
     def draw_band(x, rel_y, width_scale=1.0, height_scale=1.0, alpha=0.95):
         band_w = gel_width * 0.055 * width_scale
         band_h = gel_height * 0.015 * height_scale
-
         band_y = gel_bottom + gel_height * rel_y
 
-        # Main band
         ax.add_patch(
             FancyBboxPatch(
                 (x - band_w / 2, band_y - band_h / 2),
@@ -274,14 +263,9 @@ def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
                 zorder=5,
             )
         )
-
-        # Slight darker center
         ax.add_patch(
             FancyBboxPatch(
-                (
-                    x - band_w / 2 + band_w * 0.03,
-                    band_y - band_h / 2 + band_h * 0.18,
-                ),
+                (x - band_w / 2 + band_w * 0.03, band_y - band_h / 2 + band_h * 0.18),
                 band_w * 0.94,
                 band_h * 0.64,
                 boxstyle="round,pad=0.003,rounding_size=0.08",
@@ -292,9 +276,7 @@ def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
             )
         )
 
-    # ----------------------------------------
-    # NEB low molecular weight ladder
-    # ----------------------------------------
+    # NEB ladder positions
     ladder_rel_y = {
         1517: 0.78,
         1200: 0.71,
@@ -335,21 +317,12 @@ def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
 
 def electrophoresis_lower_genome(ax, y, gel_start_x, gel_width, gel_height):
     """Draw gel electrophoresis visualization for inverted genome state."""
-
-    # Position gel centered around y (genome row)
     gel_bottom = y - gel_height / 2
 
-    # ----------------------------------------
-    # Colors
-    # ----------------------------------------
     gel_fill = "#f3e2c5"
     gel_edge = "#9b8060"
     well_fill = "#ead7b8"
     band_color = "#2b2924"
-
-    # ----------------------------------------
-    # Main gel body
-    # ----------------------------------------
     gel = FancyBboxPatch(
         (gel_start_x, gel_bottom),
         gel_width,
@@ -431,10 +404,8 @@ def electrophoresis_lower_genome(ax, y, gel_start_x, gel_width, gel_height):
     def draw_band(x, rel_y, width_scale=1.0, height_scale=1.0, alpha=0.95):
         band_w = gel_width * 0.055 * width_scale
         band_h = gel_height * 0.015 * height_scale
-
         band_y = gel_bottom + gel_height * rel_y
 
-        # Main band
         ax.add_patch(
             FancyBboxPatch(
                 (x - band_w / 2, band_y - band_h / 2),
@@ -447,14 +418,9 @@ def electrophoresis_lower_genome(ax, y, gel_start_x, gel_width, gel_height):
                 zorder=5,
             )
         )
-
-        # Slight darker center
         ax.add_patch(
             FancyBboxPatch(
-                (
-                    x - band_w / 2 + band_w * 0.03,
-                    band_y - band_h / 2 + band_h * 0.18,
-                ),
+                (x - band_w / 2 + band_w * 0.03, band_y - band_h / 2 + band_h * 0.18),
                 band_w * 0.94,
                 band_h * 0.64,
                 boxstyle="round,pad=0.003,rounding_size=0.08",
@@ -465,13 +431,7 @@ def electrophoresis_lower_genome(ax, y, gel_start_x, gel_width, gel_height):
             )
         )
 
-    # ----------------------------------------
-    # NEB low molecular weight ladder
-    #
-    # Fragments:
-    # 1517, 1200, 1000, 900,
-    # 700, 600, 500, 300, 200 bp
-    # ----------------------------------------
+    # NEB ladder
     ladder_rel_y = {
         1517: 0.78,
         1200: 0.71,
@@ -490,24 +450,9 @@ def electrophoresis_lower_genome(ax, y, gel_start_x, gel_width, gel_height):
         else:
             draw_band(lane_x[0], rel_y, width_scale=1.0, height_scale=0.9)
 
-    # ----------------------------------------
-    # Sample lanes: 1, 2, 3 identical; 4, 5 empty; 6, 7 have distinct bands
-    # ----------------------------------------
-
-    # Lane 2: 300 bp
     draw_band(lane_x[1], ladder_rel_y[300], width_scale=0.95, height_scale=1.3)
-
-    # Lane 3: empty
-
-    # Lane 4: 300 bp
     draw_band(lane_x[3], ladder_rel_y[300], width_scale=0.95, height_scale=1.3)
-
-    # Lane 5: band at 900 bp position
     draw_band(lane_x[4], ladder_rel_y[900], width_scale=0.95, height_scale=1.3)
-
-    # Lane 6: empty
-
-    # Lane 7: empty
 
 
 # ============================================================================
@@ -543,101 +488,75 @@ def create_subplot_left(ax, y_normal, y_inversion):
     inv_end_f_normal_pole_x = x_left + inv_end_f_border_distance
     inv_end_f_inversion_pole_x = x_right - inv_end_f_border_distance
 
-    # Labels
     genome_label_anchor_x = 3
     draw_label(ax, genome_label_anchor_x, y_normal + GENOME_LABEL_OFFSET_Y, "Ancestral\nGenome", ha="left", size=20)
     draw_label(ax, genome_label_anchor_x, y_inversion + GENOME_LABEL_OFFSET_Y, "Inversion\nPresent", ha="left", size=20)
 
-    # Genome lines
     draw_genome(ax, y_normal, genome_start_x, genome_end_x)
     draw_genome(ax, y_inversion, genome_start_x, genome_end_x)
 
-    # Inversion borders (dashed lines)
     draw_inversion_border(ax, x_left, y_normal, y_inversion)
     draw_inversion_border(ax, x_right, y_normal, y_inversion)
     inversion_border_label_y = (y_normal + y_inversion) / 2
     draw_label(ax, x_left - 1, inversion_border_label_y, "Inversion start", ha="right", size=12, rotation=90, color=BLUE)
     draw_label(ax, x_right + 1, inversion_border_label_y, "Inversion end", ha="left", size=12, rotation=90, color=BLUE)
 
-    # Curved inversion arrows
     arrow_genome_offset_y = 2.0
     draw_curved_arrow(ax, (x_left + 0.8, y_normal - arrow_genome_offset_y), (x_right - 0.8, y_inversion + arrow_genome_offset_y), rad=0.2, color=BLUE)
     draw_curved_arrow(ax, (x_right - 0.8, y_normal - arrow_genome_offset_y), (x_left + 0.8, y_inversion + arrow_genome_offset_y), rad=-0.2, color=BLUE)
 
-    # Normal state primers and primer names
     primer = draw_primer_polygon(ax, sta_f_x, y_normal, direction="right", color=YELLOW, stem="up")
     draw_primer_name(ax, primer, "sta.F")
-
     primer = draw_primer_polygon(ax, inv_start_r_normal_pole_x, y_normal, direction="right", color=YELLOW, stem="up")
     draw_primer_name(ax, primer, "sta.R")
-
     primer = draw_primer_polygon(ax, inv_end_f_normal_pole_x, y_normal, direction="left", color=RED, stem="down")
     draw_primer_name(ax, primer, "end.F")
-
     primer = draw_primer_polygon(ax, end_r_x, y_normal, direction="left", color=RED, stem="down")
     draw_primer_name(ax, primer, "end.R")
 
-    # Inversion state primers and primer names
     primer = draw_primer_polygon(ax, sta_f_x, y_inversion, direction="right", color=YELLOW, stem="up")
     draw_primer_name(ax, primer, "sta.F")
-
     primer = draw_primer_polygon(ax, inv_start_r_inversion_pole_x, y_inversion, direction="left", color=YELLOW, stem="down")
     draw_primer_name(ax, primer, "sta.R")
-
     primer = draw_primer_polygon(ax, inv_end_f_inversion_pole_x, y_inversion, direction="right", color=RED, stem="up")
     draw_primer_name(ax, primer, "end.F")
-
     primer = draw_primer_polygon(ax, end_r_x, y_inversion, direction="left", color=RED, stem="down")
     draw_primer_name(ax, primer, "end.R")
 
 
 def create_subplot_right(ax, y_normal, y_inversion):
-    """Draw gel electrophoresis rectangles on the given axes."""
-    # Gel dimensions: single large rectangle per row, similar to genome line width
-    gel_width = 87  # Matches genome line width (112 - 25)
-    gel_height = 33.75  # Tall rectangles (expanded 50% both up and down)
-    gel_start_x = 2  # Small left margin
-    
-    ax.set_xlim(0, gel_start_x + gel_width + 2)  # End right after rectangle
+    """Draw gel electrophoresis on the given axes."""
+    gel_width, gel_height = 87, 33.75
+    gel_start_x = 2
+
+    ax.set_xlim(0, gel_start_x + gel_width + 2)
     ax.set_ylim(0, 100)
     ax.axis("off")
 
-    # Top row (y_normal) - original genome electrophoresis
     electrophoresis_original_genome(ax, y_normal, gel_start_x, gel_width, gel_height)
-
-    # Bottom row (y_inversion) - inverted genome electrophoresis
     electrophoresis_lower_genome(ax, y_inversion, gel_start_x, gel_width, gel_height)
 
 
 def create_diagram(output_path="inversion_diagram"):
-    """Create figure with both inversion diagram and gel rectangles side-by-side."""
-    # Calculate y positions (shared between both subplots)
+    """Create figure with both inversion diagram and gel electrophoresis side-by-side."""
     genome_center_y = 50
-    genome_vertical_distance = 42.0
-    y_normal = genome_center_y + genome_vertical_distance / 2
-    y_inversion = genome_center_y - genome_vertical_distance / 2
+    distance = 42.0
+    y_normal = genome_center_y + distance / 2
+    y_inversion = genome_center_y - distance / 2
 
-    # Create figure with 1 row and 2 columns
     fig, (ax_left, ax_right) = plt.subplots(1, 2, figsize=(20, 7.5))
-    
-    # Set layout to False for both axes so tight_layout doesn't interfere
     ax_left.set_in_layout(False)
     ax_right.set_in_layout(False)
-    
-    # Adjust spacing between subplots (decrease by 33%)
     fig.subplots_adjust(wspace=0.0)
-    
-    # Create both subplots
+
     create_subplot_left(ax_left, y_normal, y_inversion)
     create_subplot_right(ax_right, y_normal, y_inversion)
 
-    # Save outputs
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     fig.savefig(output_path.with_suffix(".png"), dpi=300, bbox_inches="tight", pad_inches=0.12, facecolor="white")
     fig.savefig(output_path.with_suffix(".svg"), bbox_inches="tight", pad_inches=0.12, facecolor="white")
-
     plt.close(fig)
 
 
