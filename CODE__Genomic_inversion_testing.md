@@ -74,8 +74,8 @@ Figure(
 
     SVG(svg1).scale(scale1).move(0, section1_image_y),
     SVG(svg2).scale(scale2).move(0, section2_image_y),
-    Text("(a) Schematic of PCR experiments", 12, section1_y + 22, size=20, weight="bold"),
-    Text("(b) PCR results", 12, section2_y + 22, size=20, weight="bold")
+    Text("(a) Schematic of PCR experiments", 12, section1_y + 22, size=24, weight="bold"),
+    Text("(b) PCR results", 12, section2_y + 22, size=24, weight="bold")
 
 ).save(combined_svg)
 
