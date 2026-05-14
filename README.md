@@ -15,4 +15,5 @@ The code for creating the following figure is displayed [here](CODE__Figure_16S_
 #### Figure: Genomic inversion testing
 The code for creating the following figure is displayed [here](CODE__Genomic_inversion_testing.md).
 
-![Combined figure](VIZ__Figure_Genomic_inversion_testing/Fig_Genomic_inversion_testing_SCHEMATIC.png)
+![Schematic](VIZ__Figure_Genomic_inversion_testing/Fig_Genomic_inversion_testing_SCHEMATIC.png)
+![Gel image panel](VIZ__Figure_Genomic_inversion_testing/Fig_Genomic_inversion_testing_GELIMAGE_PANEL.png)

@@ -5,6 +5,8 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.patheffects as pe
 from matplotlib.patches import Polygon, FancyArrowPatch, Rectangle, FancyBboxPatch
+from matplotlib.transforms import Bbox
+import numpy as np
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -321,6 +323,32 @@ def draw_top_lane_annotations(ax, lane_x, label_y):
         draw_primer_name(ax, upper_marker, upper_name, size=14)
 
 
+def get_content_bbox(fig, margin_px=0):
+    fig.canvas.draw()
+    image = np.asarray(fig.canvas.buffer_rgba())
+    nonwhite_mask = np.any(image[:, :, :3] < 250, axis=2)
+    nonwhite_rows = np.where(np.any(nonwhite_mask, axis=1))[0]
+    nonwhite_cols = np.where(np.any(nonwhite_mask, axis=0))[0]
+    if len(nonwhite_rows) == 0 or len(nonwhite_cols) == 0:
+        return None
+
+    image_height = image.shape[0]
+    image_width = image.shape[1]
+
+    left_px = max(nonwhite_cols.min() - margin_px, 0)
+    right_px = min(nonwhite_cols.max() + 1 + margin_px, image_width)
+    top_px = max(nonwhite_rows.min() - margin_px, 0)
+    bottom_px = min(nonwhite_rows.max() + 1 + margin_px, image_height)
+
+    fig_width_in, fig_height_in = fig.get_size_inches()
+    dpi = fig.dpi
+    left_in = left_px / dpi
+    right_in = right_px / dpi
+    top_in = (image_height - top_px) / dpi
+    bottom_in = (image_height - bottom_px) / dpi
+    return Bbox.from_extents(left_in, bottom_in, right_in, top_in)
+
+
 def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height, annotation_y=None):
     """Draw gel electrophoresis visualization for original (ancestral) genome state."""
     gel_bottom = y - gel_height / 2
@@ -497,8 +525,10 @@ def create_diagram(output_path="inversion_diagram"):
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    fig.savefig(output_path.with_suffix(".png"), dpi=300, bbox_inches="tight", pad_inches=0.12, facecolor="white")
-    fig.savefig(output_path.with_suffix(".svg"), bbox_inches="tight", pad_inches=0.12, facecolor="white")
+    bbox_inches = get_content_bbox(fig, margin_px=10)
+
+    fig.savefig(output_path.with_suffix(".png"), dpi=300, bbox_inches=bbox_inches, pad_inches=0, facecolor="white")
+    fig.savefig(output_path.with_suffix(".svg"), bbox_inches=bbox_inches, pad_inches=0, facecolor="white")
     plt.close(fig)
 
 

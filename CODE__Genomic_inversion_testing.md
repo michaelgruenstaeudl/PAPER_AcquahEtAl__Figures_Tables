@@ -9,3 +9,15 @@ OUTDIR="VIZ__Figure_Genomic_inversion_testing"
 python SCRIPT__create_genomic_inversion_diagram.py \
     -o $OUTDIR/Fig_Genomic_inversion_testing_SCHEMATIC
 ```
+
+#### Subplot b: Arranging and labelling the gel images
+This script arranges and labels the gel images
+
+```bash
+DATDIR="DATA__Figure_Genomic_inversion_testing"
+OUTDIR="VIZ__Figure_Genomic_inversion_testing"
+
+python SCRIPT__arrange_gel_images_in_panel.py \
+    -i $DATDIR/ \
+    -o $OUTDIR/Fig_Genomic_inversion_testing_GELIMAGE_PANEL
+```
