@@ -79,8 +79,11 @@ def draw_label(ax, x, y, text, ha="center", va="center", size=16, style="normal"
         text_artist.set_path_effects([pe.Stroke(linewidth=3, foreground="white"), pe.Normal()])
 
 
-def draw_primer_polygon(ax, x, y, direction="right", color=YELLOW, stem="up"):
-    if stem == "up":
+def draw_primer_polygon(ax, x, y, direction="right", color=YELLOW, stem="up", width=None):
+    primer_width = PRIMER_WIDTH if width is None else width
+    if stem == "none":
+        flag_y = y
+    elif stem == "up":
         stem_end = y + PRIMER_OFFSET
         draw_vertical_line(ax, x, y, stem_end)
         flag_y = stem_end
@@ -92,21 +95,21 @@ def draw_primer_polygon(ax, x, y, direction="right", color=YELLOW, stem="up"):
     if direction == "right":
         points = [
             (x, flag_y),
-            (x + PRIMER_WIDTH - PRIMER_NOTCH, flag_y),
-            (x + PRIMER_WIDTH, flag_y + PRIMER_HEIGHT / 2),
-            (x + PRIMER_WIDTH - PRIMER_NOTCH, flag_y + PRIMER_HEIGHT),
+            (x + primer_width - PRIMER_NOTCH, flag_y),
+            (x + primer_width, flag_y + PRIMER_HEIGHT / 2),
+            (x + primer_width - PRIMER_NOTCH, flag_y + PRIMER_HEIGHT),
             (x, flag_y + PRIMER_HEIGHT),
         ]
-        tip_x = x + PRIMER_WIDTH
+        tip_x = x + primer_width
     else:
         points = [
             (x, flag_y),
-            (x - PRIMER_WIDTH + PRIMER_NOTCH, flag_y),
-            (x - PRIMER_WIDTH, flag_y + PRIMER_HEIGHT / 2),
-            (x - PRIMER_WIDTH + PRIMER_NOTCH, flag_y + PRIMER_HEIGHT),
+            (x - primer_width + PRIMER_NOTCH, flag_y),
+            (x - primer_width, flag_y + PRIMER_HEIGHT / 2),
+            (x - primer_width + PRIMER_NOTCH, flag_y + PRIMER_HEIGHT),
             (x, flag_y + PRIMER_HEIGHT),
         ]
-        tip_x = x - PRIMER_WIDTH
+        tip_x = x - primer_width
 
     primer = Polygon(
         points,
@@ -123,14 +126,16 @@ def draw_primer_polygon(ax, x, y, direction="right", color=YELLOW, stem="up"):
         "tip_x": tip_x,
         "blunt_x": x,
         "direction": direction,
+        "width": primer_width,
     }
 
 
 def draw_primer_name(ax, primer, name, size=16):
+    primer_width = primer.get("width", PRIMER_WIDTH)
     if primer["direction"] == "right":
-        x = primer["blunt_x"] + PRIMER_WIDTH * 0.42
+        x = primer["blunt_x"] + primer_width * 0.42
     else:
-        x = primer["blunt_x"] - PRIMER_WIDTH * 0.42
+        x = primer["blunt_x"] - primer_width * 0.42
     draw_label(ax, x, primer["center_y"], name, ha="center", va="center", size=size, outline=True)
 
 
@@ -242,6 +247,108 @@ def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
                 zorder=4,
             )
         )
+
+    label_y = well_y + well_h + gel_height * 0.075
+    top_lane_labels = {
+        0: "Ladder",
+        1: "+Ctrl",
+        2: "—Ctrl",
+    }
+    for lane_idx, label in top_lane_labels.items():
+        draw_label(ax, lane_x[lane_idx], label_y, label, ha="center", va="bottom", size=14, color=BLACK)
+
+    marker_width = 10.6 * 0.8
+    lane4_center_x = lane_x[3]
+    sta_r_marker = draw_primer_polygon(
+        ax,
+        lane4_center_x + marker_width / 2,
+        label_y,
+        direction="left",
+        color=YELLOW,
+        stem="none",
+        width=marker_width,
+    )
+    draw_primer_name(ax, sta_r_marker, "sta.R", size=14)
+
+    sta_f_marker = draw_primer_polygon(
+        ax,
+        lane4_center_x - marker_width / 2,
+        label_y + PRIMER_HEIGHT + 0.5,
+        direction="right",
+        color=YELLOW,
+        stem="none",
+        width=marker_width,
+    )
+    draw_primer_name(ax, sta_f_marker, "sta.F", size=14)
+
+    lane5_center_x = lane_x[4]
+    end_r_marker = draw_primer_polygon(
+        ax,
+        lane5_center_x + marker_width / 2,
+        label_y,
+        direction="left",
+        color=RED,
+        stem="none",
+        width=marker_width,
+    )
+    draw_primer_name(ax, end_r_marker, "end.R", size=14)
+
+    end_f_marker = draw_primer_polygon(
+        ax,
+        lane5_center_x - marker_width / 2,
+        label_y + PRIMER_HEIGHT + 0.5,
+        direction="right",
+        color=RED,
+        stem="none",
+        width=marker_width,
+    )
+    draw_primer_name(ax, end_f_marker, "end.F", size=14)
+
+    lane6_center_x = lane_x[5]
+    end_f_marker_lane6 = draw_primer_polygon(
+        ax,
+        lane6_center_x + marker_width / 2,
+        label_y,
+        direction="left",
+        color=RED,
+        stem="none",
+        width=marker_width,
+    )
+    draw_primer_name(ax, end_f_marker_lane6, "end.F", size=14)
+
+    sta_f_marker_lane6 = draw_primer_polygon(
+        ax,
+        lane6_center_x - marker_width / 2,
+        label_y + PRIMER_HEIGHT + 0.5,
+        direction="right",
+        color=YELLOW,
+        stem="none",
+        width=marker_width,
+    )
+    draw_primer_name(ax, sta_f_marker_lane6, "sta.F", size=14)
+
+    lane7_center_x = lane_x[6]
+    end_r_marker_lane7 = draw_primer_polygon(
+        ax,
+        lane7_center_x + marker_width / 2,
+        label_y,
+        direction="left",
+        color=RED,
+        stem="none",
+        width=marker_width,
+    )
+    draw_primer_name(ax, end_r_marker_lane7, "end.R", size=14)
+
+    sta_r_marker_lane7 = draw_primer_polygon(
+        ax,
+        lane7_center_x - marker_width / 2,
+        label_y + PRIMER_HEIGHT + 0.5,
+        direction="right",
+        color=YELLOW,
+        stem="none",
+        width=marker_width,
+    )
+    draw_primer_name(ax, sta_r_marker_lane7, "sta.R", size=14)
 
     # ----------------------------------------
     # Helper function for bands
