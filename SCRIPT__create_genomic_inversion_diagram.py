@@ -165,14 +165,11 @@ def draw_electrophoresis_placeholder(ax, y, gel_start_x, gel_width, gel_height):
     ax.add_patch(gel_rect)
 
 
-def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
-    """Draw gel electrophoresis visualization for original (ancestral) genome state."""
-    gel_bottom = y - gel_height / 2
-
+def draw_gel_frame(ax, gel_start_x, gel_bottom, gel_width, gel_height):
     gel_fill = "#f3e2c5"
     gel_edge = "#9b8060"
     well_fill = "#ead7b8"
-    band_color = "#2b2924"
+
     gel = FancyBboxPatch(
         (gel_start_x, gel_bottom),
         gel_width,
@@ -186,7 +183,6 @@ def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
     ax.add_patch(gel)
 
     inner_margin = gel_width * 0.01
-
     inner_gel = FancyBboxPatch(
         (gel_start_x + inner_margin, gel_bottom + inner_margin),
         gel_width - 2 * inner_margin,
@@ -199,31 +195,26 @@ def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
     )
     ax.add_patch(inner_gel)
 
-    # ----------------------------------------
-    # Lane positions
-    # ----------------------------------------
     lane_count = 7
     lane_spacing = gel_width / (lane_count + 1)
+    lane_x = [gel_start_x + lane_spacing * (i + 1) for i in range(lane_count)]
 
-    lane_x = [
-        gel_start_x + lane_spacing * (i + 1)
-        for i in range(lane_count)
-    ]
-
-    # ----------------------------------------
-    # Wells
-    # ----------------------------------------
     well_y = gel_bottom + gel_height * 0.92
     well_w = gel_width * 0.07
     well_h = gel_height * 0.035
-
-    for i, x in enumerate(lane_x, start=1):
-        # Outer well
+    scaled_well_h = well_h * 1.25
+    well_top = well_y + well_h
+    well_bottom = well_top - scaled_well_h
+    inner_well_h = well_h * 0.64
+    scaled_inner_well_h = inner_well_h * 1.25
+    inner_well_top = well_y + well_h * 0.82
+    inner_well_bottom = inner_well_top - scaled_inner_well_h
+    for x in lane_x:
         ax.add_patch(
             FancyBboxPatch(
-                (x - well_w / 2, well_y),
+                (x - well_w / 2, well_bottom),
                 well_w,
-                well_h,
+                scaled_well_h,
                 boxstyle="round,pad=0.01,rounding_size=0.15",
                 linewidth=0.8,
                 edgecolor=gel_edge,
@@ -231,16 +222,11 @@ def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
                 zorder=3,
             )
         )
-
-        # Inner depression
         ax.add_patch(
             Rectangle(
-                (
-                    x - well_w / 2 + well_w * 0.08,
-                    well_y + well_h * 0.18,
-                ),
+                (x - well_w / 2 + well_w * 0.08, inner_well_bottom),
                 well_w * 0.84,
-                well_h * 0.64,
+                scaled_inner_well_h,
                 linewidth=0.4,
                 edgecolor=gel_edge,
                 facecolor="#f4e7ce",
@@ -248,140 +234,101 @@ def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
             )
         )
 
-    label_y = well_y + well_h + gel_height * 0.075
-    top_lane_labels = {
-        0: "Ladder",
-        1: "+Ctrl",
-        2: "—Ctrl",
-    }
-    for lane_idx, label in top_lane_labels.items():
+    return lane_x, well_bottom, scaled_well_h
+
+
+def draw_gel_band(ax, x, rel_y, gel_bottom, gel_width, gel_height, width_scale=1.0, height_scale=1.0, alpha=0.95):
+    band_w = gel_width * 0.055 * width_scale
+    band_h = gel_height * 0.015 * height_scale
+    band_y = gel_bottom + gel_height * rel_y
+    scaled_band_h = band_h * 1.15
+    band_top = band_y + band_h / 2
+    band_bottom = band_top - scaled_band_h
+    center_band_h = band_h * 0.64
+    scaled_center_band_h = center_band_h * 1.15
+    center_band_top = band_y + band_h * 0.32
+    center_band_bottom = center_band_top - scaled_center_band_h
+
+    ax.add_patch(
+        FancyBboxPatch(
+            (x - band_w / 2, band_bottom),
+            band_w,
+            scaled_band_h,
+            boxstyle="round,pad=0.01,rounding_size=0.12",
+            linewidth=0,
+            facecolor="#2b2924",
+            alpha=alpha,
+            zorder=5,
+        )
+    )
+    ax.add_patch(
+        FancyBboxPatch(
+            (x - band_w / 2 + band_w * 0.03, center_band_bottom),
+            band_w * 0.94,
+            scaled_center_band_h,
+            boxstyle="round,pad=0.003,rounding_size=0.08",
+            linewidth=0,
+            facecolor="black",
+            alpha=0.25,
+            zorder=6,
+        )
+    )
+
+
+def draw_ladder_lane(ax, x, ladder_rel_y, gel_bottom, gel_width, gel_height):
+    for bp, rel_y in ladder_rel_y.items():
+        height_scale = 1.2 if bp in (500, 1000) else 0.9
+        draw_gel_band(ax, x, rel_y, gel_bottom, gel_width, gel_height, height_scale=height_scale)
+
+
+def draw_top_lane_annotations(ax, lane_x, label_y):
+    for lane_idx, label in {0: "Ladder", 1: "+Ctrl", 2: "—Ctrl"}.items():
         draw_label(ax, lane_x[lane_idx], label_y, label, ha="center", va="bottom", size=14, color=BLACK)
 
     marker_width = 10.6 * 0.8
-    lane4_center_x = lane_x[3]
-    sta_r_marker = draw_primer_polygon(
-        ax,
-        lane4_center_x + marker_width / 2,
-        label_y,
-        direction="left",
-        color=YELLOW,
-        stem="none",
-        width=marker_width,
-    )
-    draw_primer_name(ax, sta_r_marker, "sta.R", size=14)
+    marker_specs = {
+        3: (("sta.R", "left", YELLOW), ("sta.F", "right", YELLOW)),
+        4: (("end.R", "left", RED), ("end.F", "right", RED)),
+        5: (("end.F", "left", RED), ("sta.F", "right", YELLOW)),
+        6: (("end.R", "left", RED), ("sta.R", "right", YELLOW)),
+    }
 
-    sta_f_marker = draw_primer_polygon(
-        ax,
-        lane4_center_x - marker_width / 2,
-        label_y + PRIMER_HEIGHT + 0.5,
-        direction="right",
-        color=YELLOW,
-        stem="none",
-        width=marker_width,
-    )
-    draw_primer_name(ax, sta_f_marker, "sta.F", size=14)
+    for lane_idx, ((lower_name, lower_direction, lower_color), (upper_name, upper_direction, upper_color)) in marker_specs.items():
+        center_x = lane_x[lane_idx]
+        lower_x = center_x + marker_width / 2 if lower_direction == "left" else center_x - marker_width / 2
+        upper_x = center_x + marker_width / 2 if upper_direction == "left" else center_x - marker_width / 2
 
-    lane5_center_x = lane_x[4]
-    end_r_marker = draw_primer_polygon(
-        ax,
-        lane5_center_x + marker_width / 2,
-        label_y,
-        direction="left",
-        color=RED,
-        stem="none",
-        width=marker_width,
-    )
-    draw_primer_name(ax, end_r_marker, "end.R", size=14)
-
-    end_f_marker = draw_primer_polygon(
-        ax,
-        lane5_center_x - marker_width / 2,
-        label_y + PRIMER_HEIGHT + 0.5,
-        direction="right",
-        color=RED,
-        stem="none",
-        width=marker_width,
-    )
-    draw_primer_name(ax, end_f_marker, "end.F", size=14)
-
-    lane6_center_x = lane_x[5]
-    end_f_marker_lane6 = draw_primer_polygon(
-        ax,
-        lane6_center_x + marker_width / 2,
-        label_y,
-        direction="left",
-        color=RED,
-        stem="none",
-        width=marker_width,
-    )
-    draw_primer_name(ax, end_f_marker_lane6, "end.F", size=14)
-
-    sta_f_marker_lane6 = draw_primer_polygon(
-        ax,
-        lane6_center_x - marker_width / 2,
-        label_y + PRIMER_HEIGHT + 0.5,
-        direction="right",
-        color=YELLOW,
-        stem="none",
-        width=marker_width,
-    )
-    draw_primer_name(ax, sta_f_marker_lane6, "sta.F", size=14)
-
-    lane7_center_x = lane_x[6]
-    end_r_marker_lane7 = draw_primer_polygon(
-        ax,
-        lane7_center_x + marker_width / 2,
-        label_y,
-        direction="left",
-        color=RED,
-        stem="none",
-        width=marker_width,
-    )
-    draw_primer_name(ax, end_r_marker_lane7, "end.R", size=14)
-
-    sta_r_marker_lane7 = draw_primer_polygon(
-        ax,
-        lane7_center_x - marker_width / 2,
-        label_y + PRIMER_HEIGHT + 0.5,
-        direction="right",
-        color=YELLOW,
-        stem="none",
-        width=marker_width,
-    )
-    draw_primer_name(ax, sta_r_marker_lane7, "sta.R", size=14)
-
-    # ----------------------------------------
-    # Helper function for bands
-    # ----------------------------------------
-    def draw_band(x, rel_y, width_scale=1.0, height_scale=1.0, alpha=0.95):
-        band_w = gel_width * 0.055 * width_scale
-        band_h = gel_height * 0.015 * height_scale
-        band_y = gel_bottom + gel_height * rel_y
-
-        ax.add_patch(
-            FancyBboxPatch(
-                (x - band_w / 2, band_y - band_h / 2),
-                band_w,
-                band_h,
-                boxstyle="round,pad=0.01,rounding_size=0.12",
-                linewidth=0,
-                facecolor=band_color,
-                alpha=alpha,
-                zorder=5,
-            )
+        lower_marker = draw_primer_polygon(
+            ax,
+            lower_x,
+            label_y,
+            direction=lower_direction,
+            color=lower_color,
+            stem="none",
+            width=marker_width,
         )
-        ax.add_patch(
-            FancyBboxPatch(
-                (x - band_w / 2 + band_w * 0.03, band_y - band_h / 2 + band_h * 0.18),
-                band_w * 0.94,
-                band_h * 0.64,
-                boxstyle="round,pad=0.003,rounding_size=0.08",
-                linewidth=0,
-                facecolor="black",
-                alpha=0.25,
-                zorder=6,
-            )
+        draw_primer_name(ax, lower_marker, lower_name, size=14)
+
+        upper_marker = draw_primer_polygon(
+            ax,
+            upper_x,
+            label_y + PRIMER_HEIGHT + 0.5,
+            direction=upper_direction,
+            color=upper_color,
+            stem="none",
+            width=marker_width,
         )
+        draw_primer_name(ax, upper_marker, upper_name, size=14)
+
+
+def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height, annotation_y=None):
+    """Draw gel electrophoresis visualization for original (ancestral) genome state."""
+    gel_bottom = y - gel_height / 2
+    lane_x, _, _ = draw_gel_frame(ax, gel_start_x, gel_bottom, gel_width, gel_height)
+    if annotation_y is None:
+        annotation_y = y
+    label_y = annotation_y + gel_height * 0.53
+    draw_top_lane_annotations(ax, lane_x, label_y)
 
     # NEB ladder positions
     ladder_rel_y = {
@@ -396,18 +343,14 @@ def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
         200: 0.18,
     }
 
-    for bp, rel_y in ladder_rel_y.items():
-        if bp in (500, 1000):
-            draw_band(lane_x[0], rel_y, width_scale=1.0, height_scale=1.2)
-        else:
-            draw_band(lane_x[0], rel_y, width_scale=1.0, height_scale=0.9)
+    draw_ladder_lane(ax, lane_x[0], ladder_rel_y, gel_bottom, gel_width, gel_height)
 
     # ----------------------------------------
     # Sample lanes: 1, 2, 3 identical to lower gel; 4, 5 empty; 6, 7 have distinct bands
     # ----------------------------------------
 
     # Lane 2: 300 bp
-    draw_band(lane_x[1], ladder_rel_y[300], width_scale=0.95, height_scale=1.3)
+    draw_gel_band(ax, lane_x[1], ladder_rel_y[300], gel_bottom, gel_width, gel_height, width_scale=0.95, height_scale=1.3)
 
     # Lane 3: empty
 
@@ -416,127 +359,16 @@ def electrophoresis_original_genome(ax, y, gel_start_x, gel_width, gel_height):
     # Lane 5: empty
 
     # Lane 6: one band in 600-800 bp range (650 bp, smaller)
-    draw_band(lane_x[5], ladder_rel_y[600], width_scale=0.85, height_scale=1.2)
+    draw_gel_band(ax, lane_x[5], ladder_rel_y[600], gel_bottom, gel_width, gel_height, width_scale=0.85, height_scale=1.2)
 
     # Lane 7: one band in 600-800 bp range (750 bp, larger)
-    draw_band(lane_x[6], ladder_rel_y[700], width_scale=1.05, height_scale=1.35)
+    draw_gel_band(ax, lane_x[6], ladder_rel_y[700], gel_bottom, gel_width, gel_height, width_scale=1.05, height_scale=1.35)
 
 
 def electrophoresis_lower_genome(ax, y, gel_start_x, gel_width, gel_height):
     """Draw gel electrophoresis visualization for inverted genome state."""
     gel_bottom = y - gel_height / 2
-
-    gel_fill = "#f3e2c5"
-    gel_edge = "#9b8060"
-    well_fill = "#ead7b8"
-    band_color = "#2b2924"
-    gel = FancyBboxPatch(
-        (gel_start_x, gel_bottom),
-        gel_width,
-        gel_height,
-        boxstyle="round,pad=0.01,rounding_size=0.6",
-        linewidth=1.2,
-        edgecolor=gel_edge,
-        facecolor=gel_fill,
-        zorder=1,
-    )
-    ax.add_patch(gel)
-
-    inner_margin = gel_width * 0.01
-
-    inner_gel = FancyBboxPatch(
-        (gel_start_x + inner_margin, gel_bottom + inner_margin),
-        gel_width - 2 * inner_margin,
-        gel_height - 2 * inner_margin,
-        boxstyle="round,pad=0.005,rounding_size=0.4",
-        linewidth=0.5,
-        edgecolor=gel_edge,
-        facecolor="none",
-        zorder=2,
-    )
-    ax.add_patch(inner_gel)
-
-    # ----------------------------------------
-    # Lane positions
-    # ----------------------------------------
-    lane_count = 7
-    lane_spacing = gel_width / (lane_count + 1)
-
-    lane_x = [
-        gel_start_x + lane_spacing * (i + 1)
-        for i in range(lane_count)
-    ]
-
-    # ----------------------------------------
-    # Wells
-    # ----------------------------------------
-    well_y = gel_bottom + gel_height * 0.92
-    well_w = gel_width * 0.07
-    well_h = gel_height * 0.035
-
-    for i, x in enumerate(lane_x, start=1):
-        # Outer well
-        ax.add_patch(
-            FancyBboxPatch(
-                (x - well_w / 2, well_y),
-                well_w,
-                well_h,
-                boxstyle="round,pad=0.01,rounding_size=0.15",
-                linewidth=0.8,
-                edgecolor=gel_edge,
-                facecolor=well_fill,
-                zorder=3,
-            )
-        )
-
-        # Inner depression
-        ax.add_patch(
-            Rectangle(
-                (
-                    x - well_w / 2 + well_w * 0.08,
-                    well_y + well_h * 0.18,
-                ),
-                well_w * 0.84,
-                well_h * 0.64,
-                linewidth=0.4,
-                edgecolor=gel_edge,
-                facecolor="#f4e7ce",
-                zorder=4,
-            )
-        )
-
-    # ----------------------------------------
-    # Helper function for bands
-    # ----------------------------------------
-    def draw_band(x, rel_y, width_scale=1.0, height_scale=1.0, alpha=0.95):
-        band_w = gel_width * 0.055 * width_scale
-        band_h = gel_height * 0.015 * height_scale
-        band_y = gel_bottom + gel_height * rel_y
-
-        ax.add_patch(
-            FancyBboxPatch(
-                (x - band_w / 2, band_y - band_h / 2),
-                band_w,
-                band_h,
-                boxstyle="round,pad=0.01,rounding_size=0.12",
-                linewidth=0,
-                facecolor=band_color,
-                alpha=alpha,
-                zorder=5,
-            )
-        )
-        ax.add_patch(
-            FancyBboxPatch(
-                (x - band_w / 2 + band_w * 0.03, band_y - band_h / 2 + band_h * 0.18),
-                band_w * 0.94,
-                band_h * 0.64,
-                boxstyle="round,pad=0.003,rounding_size=0.08",
-                linewidth=0,
-                facecolor="black",
-                alpha=0.25,
-                zorder=6,
-            )
-        )
+    lane_x, _, _ = draw_gel_frame(ax, gel_start_x, gel_bottom, gel_width, gel_height)
 
     # NEB ladder
     ladder_rel_y = {
@@ -551,15 +383,10 @@ def electrophoresis_lower_genome(ax, y, gel_start_x, gel_width, gel_height):
         200: 0.18,
     }
 
-    for bp, rel_y in ladder_rel_y.items():
-        if bp in (500, 1000):
-            draw_band(lane_x[0], rel_y, width_scale=1.0, height_scale=1.2)
-        else:
-            draw_band(lane_x[0], rel_y, width_scale=1.0, height_scale=0.9)
-
-    draw_band(lane_x[1], ladder_rel_y[300], width_scale=0.95, height_scale=1.3)
-    draw_band(lane_x[3], ladder_rel_y[300], width_scale=0.95, height_scale=1.3)
-    draw_band(lane_x[4], ladder_rel_y[900], width_scale=0.95, height_scale=1.3)
+    draw_ladder_lane(ax, lane_x[0], ladder_rel_y, gel_bottom, gel_width, gel_height)
+    draw_gel_band(ax, lane_x[1], ladder_rel_y[300], gel_bottom, gel_width, gel_height, width_scale=0.95, height_scale=1.3)
+    draw_gel_band(ax, lane_x[3], ladder_rel_y[300], gel_bottom, gel_width, gel_height, width_scale=0.95, height_scale=1.3)
+    draw_gel_band(ax, lane_x[4], ladder_rel_y[900], gel_bottom, gel_width, gel_height, width_scale=0.95, height_scale=1.3)
 
 
 # ============================================================================
@@ -635,12 +462,20 @@ def create_subplot_right(ax, y_normal, y_inversion):
     """Draw gel electrophoresis on the given axes."""
     gel_width, gel_height = 87, 33.75
     gel_start_x = 2
+    top_gel_offset_y = -2.0
 
     ax.set_xlim(0, gel_start_x + gel_width + 2)
     ax.set_ylim(0, 100)
     ax.axis("off")
 
-    electrophoresis_original_genome(ax, y_normal, gel_start_x, gel_width, gel_height)
+    electrophoresis_original_genome(
+        ax,
+        y_normal + top_gel_offset_y,
+        gel_start_x,
+        gel_width,
+        gel_height,
+        annotation_y=y_normal,
+    )
     electrophoresis_lower_genome(ax, y_inversion, gel_start_x, gel_width, gel_height)
 
 
