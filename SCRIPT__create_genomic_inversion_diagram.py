@@ -32,10 +32,14 @@ GENOME_LINE_WIDTH = 3.2
 INVERSION_BORDER_DASH_PATTERN = (0, (4, 6))
 
 PRIMER_HEIGHT = 5
-PRIMER_WIDTH = 8
+PRIMER_WIDTH = 14
 PRIMER_NOTCH = 2
 PRIMER_OFFSET = 7.2
 PRIMER_NAME_GAP = 2
+PRIMER_EDGE_SHIFT_X = 8
+GENOME_OVERHANG_EXTENSION = 3
+GENOME_LEFT_OVERHANG_EXTRA = 2
+GENOME_RIGHT_OVERHANG_SCALE = 0.8
 GENOME_LABEL_OFFSET_Y = 0
 
 
@@ -125,12 +129,10 @@ def draw_primer_polygon(ax, x, y, direction="right", color=YELLOW, stem="up"):
 
 def draw_primer_name(ax, primer, name, size=16):
     if primer["direction"] == "right":
-        x = primer["blunt_x"] - PRIMER_NAME_GAP
-        ha = "right"
+        x = primer["blunt_x"] + PRIMER_WIDTH * 0.42
     else:
-        x = primer["blunt_x"] + PRIMER_NAME_GAP
-        ha = "left"
-    draw_label(ax, x, primer["center_y"], name, ha=ha, va="center", size=size, outline=True)
+        x = primer["blunt_x"] - PRIMER_WIDTH * 0.42
+    draw_label(ax, x, primer["center_y"], name, ha="center", va="center", size=size, outline=True)
 
 
 def draw_curved_arrow(ax, start, end, rad, color=BLACK):
@@ -180,27 +182,32 @@ def create_subplot_left(ax, y_normal, y_inversion):
     ax.set_ylim(0, 100)
     ax.axis("off")
 
-    genome_start_x = 25
-    genome_end_x = 112
+    genome_start_x = 25 - GENOME_LEFT_OVERHANG_EXTRA
+    left_outer_primer_x = 34 - PRIMER_EDGE_SHIFT_X
+    right_outer_primer_x = 100 + PRIMER_EDGE_SHIFT_X
+    left_overhang = (left_outer_primer_x - genome_start_x) + GENOME_OVERHANG_EXTENSION
+    right_overhang = (left_overhang - 1) * GENOME_RIGHT_OVERHANG_SCALE
+    genome_end_x = right_outer_primer_x + right_overhang
 
     # Mirror Inv.start.R pole distance across inversion borders:
     x_left = 45
     x_right = 90
-    inv_start_r_inversion_pole_x = 53
-    inv_start_r_border_distance = inv_start_r_inversion_pole_x - x_left
+    inv_start_r_base_distance = 53 - x_left
+    inv_start_r_border_distance = inv_start_r_base_distance * 1.2 * 1.25 * 1.2 * 1.1
+    inv_start_r_inversion_pole_x = x_left + inv_start_r_border_distance
     inv_start_r_normal_pole_x = x_right - inv_start_r_border_distance
 
     # Mirror Inv.end.F pole distance across genomes:
     inv_end_f_normal_pole_x = 55
     inv_end_f_base_border_distance = inv_end_f_normal_pole_x - x_left
-    inv_end_f_border_distance = inv_end_f_base_border_distance * 1.4
+    inv_end_f_border_distance = inv_end_f_base_border_distance * 1.4 * 1.2 * 1.1
     inv_end_f_normal_pole_x = x_left + inv_end_f_border_distance
     inv_end_f_inversion_pole_x = x_right - inv_end_f_border_distance
 
     # Labels
     genome_label_anchor_x = 3
-    draw_label(ax, genome_label_anchor_x, y_normal + GENOME_LABEL_OFFSET_Y, "ORIGINAL\nGENOME", ha="left", size=20)
-    draw_label(ax, genome_label_anchor_x, y_inversion + GENOME_LABEL_OFFSET_Y, "INVERSION\nPRESENT", ha="left", size=20)
+    draw_label(ax, genome_label_anchor_x, y_normal + GENOME_LABEL_OFFSET_Y, "Ancestral\nGenome", ha="left", size=20)
+    draw_label(ax, genome_label_anchor_x, y_inversion + GENOME_LABEL_OFFSET_Y, "Inversion\nPresent", ha="left", size=20)
 
     # Genome lines
     draw_genome(ax, y_normal, genome_start_x, genome_end_x)
@@ -219,30 +226,30 @@ def create_subplot_left(ax, y_normal, y_inversion):
     draw_curved_arrow(ax, (x_right - 0.8, y_normal - arrow_genome_offset_y), (x_left + 0.8, y_inversion + arrow_genome_offset_y), rad=-0.2, color=BLUE)
 
     # Normal state primers and primer names
-    primer = draw_primer_polygon(ax, 34, y_normal, direction="right", color=YELLOW, stem="up")
-    draw_primer_name(ax, primer, "Inv.start.F")
+    primer = draw_primer_polygon(ax, 34 - PRIMER_EDGE_SHIFT_X, y_normal, direction="right", color=YELLOW, stem="up")
+    draw_primer_name(ax, primer, "sta.F")
 
     primer = draw_primer_polygon(ax, inv_start_r_normal_pole_x, y_normal, direction="right", color=YELLOW, stem="up")
-    draw_primer_name(ax, primer, "Inv.start.R")
+    draw_primer_name(ax, primer, "sta.R")
 
     primer = draw_primer_polygon(ax, inv_end_f_normal_pole_x, y_normal, direction="left", color=RED, stem="down")
-    draw_primer_name(ax, primer, "Inv.end.F")
+    draw_primer_name(ax, primer, "end.F")
 
-    primer = draw_primer_polygon(ax, 100, y_normal, direction="left", color=RED, stem="down")
-    draw_primer_name(ax, primer, "Inv.end.R")
+    primer = draw_primer_polygon(ax, 100 + PRIMER_EDGE_SHIFT_X, y_normal, direction="left", color=RED, stem="down")
+    draw_primer_name(ax, primer, "end.R")
 
     # Inversion state primers and primer names
-    primer = draw_primer_polygon(ax, 34, y_inversion, direction="right", color=YELLOW, stem="up")
-    draw_primer_name(ax, primer, "Inv.start.F")
+    primer = draw_primer_polygon(ax, 34 - PRIMER_EDGE_SHIFT_X, y_inversion, direction="right", color=YELLOW, stem="up")
+    draw_primer_name(ax, primer, "sta.F")
 
     primer = draw_primer_polygon(ax, inv_start_r_inversion_pole_x, y_inversion, direction="left", color=YELLOW, stem="down")
-    draw_primer_name(ax, primer, "Inv.start.R")
+    draw_primer_name(ax, primer, "sta.R")
 
     primer = draw_primer_polygon(ax, inv_end_f_inversion_pole_x, y_inversion, direction="right", color=RED, stem="up")
-    draw_primer_name(ax, primer, "Inv.end.F")
+    draw_primer_name(ax, primer, "end.F")
 
-    primer = draw_primer_polygon(ax, 100, y_inversion, direction="left", color=RED, stem="down")
-    draw_primer_name(ax, primer, "Inv.end.R")
+    primer = draw_primer_polygon(ax, 100 + PRIMER_EDGE_SHIFT_X, y_inversion, direction="left", color=RED, stem="down")
+    draw_primer_name(ax, primer, "end.R")
 
 
 def create_subplot_right(ax, y_normal, y_inversion):
