@@ -57,7 +57,7 @@ def create_diagram(input_folder, output_stem):
     short_edge = min(panel_w, panel_h)
     gap = max(24, int(round(short_edge * 0.08)))
 
-    font_size = max(36, int(round(short_edge * 0.15 * 0.6)))
+    font_size = max(30, int(round(short_edge * 0.15 * 0.5)))
     label_height = int(round(font_size * 1.2))
     label_to_image_gap = max(6, int(round(font_size * 0.12)))
 
@@ -91,7 +91,7 @@ def create_diagram(input_folder, output_stem):
 
         svg.append(
             f'<text x="{x + left_label_padding}" y="{y + font_size}" '
-            f'font-family="Arial" font-size="{font_size}" font-weight="bold" fill="black">{label}</text>'
+            f'font-family="Arial" font-size="{font_size}" font-weight="normal" fill="black">{label}</text>'
         )
 
         img_x = x + (panel_w - img.width) / 2

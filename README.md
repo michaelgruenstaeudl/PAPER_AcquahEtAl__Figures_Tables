@@ -9,11 +9,10 @@ The analysis files of the data visualized here can be found on [Zenodo.org](http
 #### Figure: 16S rRNA metagenomics
 The code for creating the following figure is displayed [here](CODE__Figure_16S_rRNA_metagenomics.md).
 
-![Combined figure](VIZ__Figure_16S_rRNA_metagenomics/Fig_16S_rRNA__combined.png)
+![Combined figure](VIZ__Figure_16S_rRNA_metagenomics/Fig_16S_rRNA__COMBINED.png)
 
 
 #### Figure: Genomic inversion testing
 The code for creating the following figure is displayed [here](CODE__Genomic_inversion_testing.md).
 
-![Schematic](VIZ__Figure_Genomic_inversion_testing/Fig_Genomic_inversion_testing_SCHEMATIC.png)
-![Gel image panel](VIZ__Figure_Genomic_inversion_testing/Fig_Genomic_inversion_testing_GELIMAGE_PANEL.png)
+![Combined figure](VIZ__Figure_Genomic_inversion_testing/Fig_Genomic_inversion__COMBINED.png)

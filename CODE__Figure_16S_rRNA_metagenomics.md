@@ -69,8 +69,8 @@ section2_image_y = section2_y + title_band
 
 combined_height = section2_image_y + new_h2
 
-combined_svg = "${OUTDIR}/Fig_16S_rRNA__combined.svg"
-combined_png = "${OUTDIR}/Fig_16S_rRNA__combined.png"
+combined_svg = "${OUTDIR}/Fig_16S_rRNA__COMBINED.svg"
+combined_png = "${OUTDIR}/Fig_16S_rRNA__COMBINED.png"
 
 Figure(
     f"{target_width}px",
@@ -78,12 +78,30 @@ Figure(
 
     SVG(svg1).scale(scale1).move(0, section1_image_y),
     SVG(svg2).scale(scale2).move(0, section2_image_y),
-    Text("(a) Genetic composition", 12, section1_y + 22, size=16, weight="bold"),
-    Text("(b) Diversity indices", 12, section2_y + 22, size=16, weight="bold")
+    Text("(a) Genetic composition", 12, section1_y + 22, size=20, weight="bold"),
+    Text("(b) Diversity indices", 12, section2_y + 22, size=20, weight="bold")
 
 ).save(combined_svg)
 
-cairosvg.svg2png(url=combined_svg, write_to=combined_png)
+# Ensure the SVG itself has an opaque white background.
+tree = ET.parse(combined_svg)
+root = tree.getroot()
+bg = ET.Element(
+    "{http://www.w3.org/2000/svg}rect",
+    {
+        "x": "0",
+        "y": "0",
+        "width": "100%",
+        "height": "100%",
+        "fill": "white",
+    },
+)
+root.insert(0, bg)
+tree.write(combined_svg, encoding="utf-8", xml_declaration=True)
+
+
+# Also enforce white when rasterizing to PNG.
+cairosvg.svg2png(url=combined_svg, write_to=combined_png, background_color="white")
 
 PY
 ```
