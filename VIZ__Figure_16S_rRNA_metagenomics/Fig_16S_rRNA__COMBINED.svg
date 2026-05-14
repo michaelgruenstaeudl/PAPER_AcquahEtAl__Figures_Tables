@@ -4936,7 +4936,7 @@
   </ns0:clipPath>
  </ns0:defs>
 </ns0:g>
-    <ns0:text x="12" y="22" font-size="20" font-family="Verdana" font-weight="bold" letter-spacing="0" text-anchor="start" fill="black">(a) Genetic composition</ns0:text>
-    <ns0:text x="12" y="613.447651998131" font-size="20" font-family="Verdana" font-weight="bold" letter-spacing="0" text-anchor="start" fill="black">(b) Diversity indices</ns0:text>
+    <ns0:text x="12" y="22" font-size="22" font-family="Verdana" font-weight="bold" letter-spacing="0" text-anchor="start" fill="black">(a) Genetic composition</ns0:text>
+    <ns0:text x="12" y="613.447651998131" font-size="22" font-family="Verdana" font-weight="bold" letter-spacing="0" text-anchor="start" fill="black">(b) Diversity indices</ns0:text>
   </ns0:g>
 </ns0:svg>
