@@ -42,12 +42,12 @@ def create_diagram(input_folder, output_stem):
     input_folder = Path(input_folder)
 
     image_files = [
-        input_folder / "cropped_scaled_GEL_Inv1.jpeg",
-        input_folder / "cropped_scaled_GEL_Inv2.jpeg",
-        input_folder / "cropped_scaled_GEL_Inv3.jpeg",
-        input_folder / "cropped_scaled_GEL_Inv4.jpeg",
-        input_folder / "cropped_scaled_GEL_Inv5.jpeg",
-        input_folder / "cropped_scaled_GEL_Inv6.jpeg",
+        input_folder / "scaled_GEL_Inv1.jpeg",
+        input_folder / "scaled_GEL_Inv2.jpeg",
+        input_folder / "scaled_GEL_Inv3.jpeg",
+        input_folder / "scaled_GEL_Inv4.jpeg",
+        input_folder / "scaled_GEL_Inv5.jpeg",
+        input_folder / "scaled_GEL_Inv6.jpeg",
     ]
 
     labels = [
