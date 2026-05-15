@@ -16,3 +16,40 @@ The code for creating the following figure is displayed [here](CODE__Figure_16S_
 The code for creating the following figure is displayed [here](CODE__Genomic_inversion_testing.md).
 
 ![Compound figure on genomic inversion testing](VIZ__Figure_Genomic_inversion_testing/Fig_Genomic_inversion__COMBINED.png)
+
+#### Table: Custom PCR primers for genomic inversion testing
+The following oligonucleotide PCR primers were designed and used in the genomic inversion testing
+
+| Inversion | Oligo Name | Oligo Sequence (5' to 3') | Approx. amplicon length |
+| --------- | ---------- | ------------------------- | ----------------------- |
+| 1         | sta.F      | AGCTARARAATCGCGCGATTAY    | Inv1.sta: 300 bp        |
+| 1         | sta.R      | GGAGCATCAACCATGAAACAGC    |                         |
+| 1         | end.F      | ATCCAGATTGGTACTTGGAAGCG   | Inv1.end: 400 bp        |
+| 1         | end.R      | CTAGACTAAACTTCGGGGGTAGAC  |                         |
+| ---       | ---        | ---                       | ---                     |
+| 2         | sta.F      | TTGTGCATACCAAGTCCAAAAGTC  | Inv2.sta: 450 bp        |
+| 2         | sta.R      | GGTAAGGAATTCGGGCTGATAGTA  |                         |
+| 2         | end.F      | AAAACAGGAACMAAATAGCAGGGG  | Inv2.end: 120 bp        |
+| 2         | end.R      | GATTTGTCAGCGTTAGAGATTGGG  |                         |
+| ---       | ---        | ---                       | ---                     |
+| 3         | sta.F      | AGGTCTAGCACTTCTGAGAGGAT   | Inv3.sta: 3000 bp       |
+| 3         | sta.R      | GAAATTTTCAGCCGAATTCGCAC   |                         |
+| 3         | end.F      | CGTTGCCCATCCCTGAAGAT      | Inv3.end: 1900 bp       |
+| 3         | end.R      | AGAGCCGATCGTTGCGATAG      |                         |
+| ---       | ---        | ---                       | ---                     |
+| 4         | sta.F      | CCCAATGGTCACGMAAGGGTTAAT  | Inv4.sta: 1900 bp       |
+| 4         | sta.R      | AAGGCATTGAACAAGGTATTGAGC  |                         |
+| 4         | end.F      | AAGCSAWGAAASAKYACCCARACT  | Inv4.end: 1300 bp       |
+| 4         | end.R      | YACCTACTAACTGCCTCATAGCAT  |                         |
+| ---       | ---        | ---                       | ---                     |
+| 5         | sta.F      | TYRCCAGTTCTTGMAATGCTGATT  | Inv5.sta: 300 bp        |
+| 5         | sta.R      | TTTATCTATCAACGCTGTTTCGCC  |                         |
+| 5         | end.F      | GCCATGTATTTGGATGTGTTGGAA  | Inv5.end: 470 bp        |
+| 5         | end.R      | GCGATAGGCCCAAATCATAATTCC  |                         |
+| ---       | ---        | ---                       | ---                     |
+| 6         | sta.F      | AAAATCCGCCGAAGAAAATTTGC   | Inv6.sta: 2000 bp       |
+| 6         | sta.R      | GGGAAGACCATYAAGGAAGCAGA   |                         |
+| 6         | end.F      | ACAAAAACAACGAACAGGTAGGG   | Inv6.end: 290 bp        |
+| 6         | end.R      | TTAACAATCCTTTCCCYACACCT   |                         |
+
+The same table in [LaTeX format](TABLES/TABLE_Custom_PCR_primers_for_genomic_inversion_testing.tex).
