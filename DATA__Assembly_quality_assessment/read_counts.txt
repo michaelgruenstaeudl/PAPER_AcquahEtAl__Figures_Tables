@@ -1,0 +1,21 @@
+Read counts and average read sizes before and after quality filtering
+=====================================================================
+
+Illumina reads before filtering:
+  R1: 8581010
+  R2: 8581010
+
+Illumina reads after filtering:
+  R1 paired (count): 8417521
+  R1 paired (avg read size, bp): 148.3
+  R2 paired (count): 8417521
+  R2 paired (avg read size, bp): 146.9
+  R1 unpaired (count): 151109
+  R2 unpaired (count): 10968
+
+Nanopore reads before filtering:
+  All reads: 545128
+
+Nanopore reads after filtering:
+  Filtered reads (count): 131458
+  Filtered reads (avg read size, bp): 4527.4

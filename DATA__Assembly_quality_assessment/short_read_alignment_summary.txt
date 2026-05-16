@@ -1,0 +1,51 @@
+Short-read alignment summary
+============================
+
+16863002 + 0 in total (QC-passed reads + QC-failed reads)
+16835042 + 0 primary
+0 + 0 secondary
+27960 + 0 supplementary
+0 + 0 duplicates
+0 + 0 primary duplicates
+16545153 + 0 mapped (98.12% : N/A)
+16517193 + 0 primary mapped (98.11% : N/A)
+16835042 + 0 paired in sequencing
+8417521 + 0 read1
+8417521 + 0 read2
+16461424 + 0 properly paired (97.78% : N/A)
+16501446 + 0 with itself and mate mapped
+15747 + 0 singletons (0.09% : N/A)
+302 + 0 with mate mapped to a different chr
+297 + 0 with mate mapped to a different chr (mapQ>=5)
+
+Per-contig mapping summary
+==========================
+
+Limnothrix_Unicycler_1	4537250	15841106	15228
+Limnothrix_Unicycler_2	5386	621472	448
+Limnothrix_Unicycler_3	4038	82575	71
+*	0	0	302102
+
+Interpretation
+==============
+
+Key observations
+- 16545153 mapped (98.12%): nearly all Illumina reads map back to the assembly.
+- 16461424 properly paired (97.78%): pairing and orientation are highly consistent with the assembly structure.
+- 0 duplicates: duplicate marking is not present or no duplicates were reported in this BAM.
+- 15747 singletons (0.09%): very few discordant pair mappings.
+- 302 reads with mate on a different contig (297 at mapQ>=5): low structural ambiguity signal.
+
+Main contig
+- Primary contig by mapped read support: Limnothrix_Unicycler_1
+- Length: 4537250 bp
+- Mapped reads: 15841106
+- Approximate coverage (assuming 150 bp reads): 523.70x
+
+Unmapped reads
+- Unmapped reads: 302102 (1.79% of mapped+unmapped in idxstats).
+- A small unmapped fraction is expected and can reflect residual adapters, low-quality bases, contamination, repetitive regions, or sequence heterogeneity.
+
+Overall interpretation
+- This assembly is strongly supported when mapped and properly paired rates are high and cross-contig mate counts remain low.
+- Large coverage differences between contigs in the table often indicate plasmids, repeats, or copy-number variation.

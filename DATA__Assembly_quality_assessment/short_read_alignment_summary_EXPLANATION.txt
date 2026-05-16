@@ -1,0 +1,116 @@
+This is an excellent assembly by bacterial-genome standards. The short-read mapping statistics strongly support that the assembly is essentially complete and highly consistent with the Illumina data.
+
+The key observations are:
+
+Metric	Interpretation
+98.12% mapped	Nearly all Illumina reads map back to the assembly
+97.78% properly paired	Read pairing/orientation agrees with the assembly structure
+0 duplicates	No PCR duplicate marking was performed
+only 0.09% singletons	Very few discordant mappings
+only 302 cross-contig mappings	Very little structural ambiguity
+chromosome-sized primary contig	Near-complete assembly
+
+The strongest indicators are:
+
+16545153 mapped (98.12%)
+16461424 properly paired (97.78%)
+
+These are very high values. In practice this means:
+
+the assembly explains almost all Illumina sequence content,
+there are very few missing genomic regions,
+there are probably few major misassemblies.
+
+The remaining ~1.9% unmapped reads are completely normal and can arise from:
+
+residual adapter contamination,
+low-quality reads,
+contaminants,
+highly repetitive regions,
+plasmid heterogeneity,
+sequencing artefacts.
+
+The per-contig mapping summary is also highly informative.
+
+Main chromosome
+Limnothrix_Unicycler_1
+4537250 bp
+15841106 mapped reads
+
+This is clearly the primary chromosome.
+
+The depth is approximately:
+
+15,841,106 reads / 4,537,250 bp
+
+Given 150 bp paired-end reads, coverage is roughly:
+
+(15,841,106 × 150) / 4,537,250 ≈ 523×
+
+Very high coverage.
+
+Small replicons
+Limnothrix_Unicycler_2
+5386 bp
+621472 mapped reads
+
+and
+
+Limnothrix_Unicycler_3
+4038 bp
+82575 mapped reads
+
+These are likely plasmids or other small circular replicons.
+
+Contig 2 has extremely elevated coverage relative to the chromosome, suggesting:
+
+high plasmid copy number,
+or repetitive/mobile-element sequence.
+
+Approximate coverage:
+
+(621,472 × 150) / 5,386 ≈ 17,000×
+
+That is massively overrepresented compared to the chromosome.
+
+Contig 3:
+
+(82,575 × 150) / 4,038 ≈ 3,000×
+
+also strongly enriched.
+
+These coverage differences are classic plasmid signatures.
+
+Unmapped reads
+* 0 0 302102
+
+means:
+
+302,102 reads did not map anywhere.
+
+Relative to ~16.8 million reads total, this is only:
+
+302102 / 16863002 ≈ 1.79%
+
+which is very low.
+
+Structural consistency
+302 with mate mapped to a different chr
+297 with mate mapped to a different chr (mapQ>=5)
+
+This is tiny.
+
+If there were major misassemblies or unresolved repeats, you would expect many more discordant mappings.
+
+Overall interpretation
+
+Your assembly appears to be:
+
+essentially complete,
+structurally consistent,
+strongly supported by the Illumina reads,
+composed of:
+one chromosome (~4.54 Mb),
+two probable circular plasmids/small replicons.
+
+Combined with the Unicycler output showing all three replicons as complete, this is a very convincing hybrid assembly.

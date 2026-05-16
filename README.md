@@ -4,6 +4,7 @@ Code for generating publication-quality figures and tables for the manuscript of
 ### Cross-connection
 The analysis files of the data visualized here can be found on [Zenodo.org](https://zenodo.org/) under the repository with the DOI [10.5281/zenodo.20129247](https://doi.org/10.5281/zenodo.20129247).
 
+
 ### Visualizations
 
 #### Figure: 16S rRNA metagenomics
@@ -16,6 +17,7 @@ The code for creating the following figure is displayed [here](CODE__Figure_16S_
 The code for creating the following figure is displayed [here](CODE__Genomic_inversion_testing.md).
 
 ![Compound figure on genomic inversion testing](VIZ__Figure_Genomic_inversion_testing/Fig_Genomic_inversion__COMBINED.png)
+
 
 #### Table: Custom PCR primers for genomic inversion testing
 The following oligonucleotide PCR primers were designed and used in the genomic inversion testing
@@ -53,3 +55,11 @@ The following oligonucleotide PCR primers were designed and used in the genomic 
 | 6         | end.R      | TTAACAATCCTTTCCCYACACCT   |                         |
 
 The same table in [LaTeX format](TABLES/TABLE_Custom_PCR_primers_for_genomic_inversion_testing.tex).
+
+
+#### Table: Assessment of assembly quality
+The code for assessing the qualitry of the assembly process numerically is found [here](CODE__Assembly_quality_assessment.md). 
+
+Markdown table here.
+
+The same table in [LaTeX format]().
