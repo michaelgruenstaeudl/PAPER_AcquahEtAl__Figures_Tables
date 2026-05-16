@@ -60,6 +60,10 @@ The same table in [LaTeX format](TABLES/TABLE_Custom_PCR_primers_for_genomic_inv
 #### Table: Assessment of assembly quality
 The code for assessing the qualitry of the assembly process numerically is found [here](CODE__Assembly_quality_assessment.md). 
 
-Markdown table here.
+| Stage                           | Illumina (R1; R2)                            | Oxford Nanopore  |
+| ------------------------------- | -------------------------------------------- | ---------------- |
+| Reads before QC                 | 8,581,010; 8,581,010                         | 545,128          |
+| Reads after QC                  | 8,417,521 (98.09%); 8,417,521 (98.09%)       | 131,458 (24.12%) |
+| Avg. read length after QC (bp)  | 148.3; 146.9                                 | 4,527.4          |
 
 The same table in [LaTeX format]().
