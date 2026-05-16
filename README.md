@@ -54,16 +54,27 @@ The following oligonucleotide PCR primers were designed and used in the genomic 
 | 6         | end.F      | ACAAAAACAACGAACAGGTAGGG   | Inv6.end: 290 bp        |
 | 6         | end.R      | TTAACAATCCTTTCCCYACACCT   |                         |
 
-The same table in [LaTeX format](TABLES/TABLE_Custom_PCR_primers_for_genomic_inversion_testing.tex).
+The same table in LaTeX format [here](TABLES/TABLE_Custom_PCR_primers_for_genomic_inversion_testing.tex).
 
 
-#### Table: Assessment of assembly quality
-The code for assessing the qualitry of the assembly process numerically is found [here](CODE__Assembly_quality_assessment.md). 
+#### Tables: Read statistics and assessment of assembly quality
+The code for extracting read statistics and assessing the quality of the assembly process is found [here](CODE__Assembly_quality_assessment.md). 
 
-| Stage                           | Illumina (R1; R2)                            | Oxford Nanopore  |
-| ------------------------------- | -------------------------------------------- | ---------------- |
-| Reads before QC                 | 8,581,010; 8,581,010                         | 545,128          |
-| Reads after QC                  | 8,417,521 (98.09%); 8,417,521 (98.09%)       | 131,458 (24.12%) |
-| Avg. read length after QC (bp)  | 148.3; 146.9                                 | 4,527.4          |
+| Stage                                              | Illumina (R1; R2)                      | Oxford Nanopore   |
+| -------------------------------------------------- | -------------------------------------- | ----------------- |
+| Reads pre-QC                                       | 8,581,010; 8,581,010                   | 545,128           |
+| Reads post-QC (% of pre-QC)                        | 8,417,521 (98.09%); 8,417,521 (98.09%) | 131,458 (24.12%)  |
+| Avg. read length post-QC (bp)                      | 148.3; 146.9                           | 4,527.4           |
+| Fully mapping (paired) reads (% of post-QC reads)  | 8,230,712 (97.78%)                     | 78,437 (57.56%)   |
+| Coverage of bacterial genome                       |                                        |                   |
+| Coverage of bacterial plasmid                      |                                        |                   |
 
-The same table in [LaTeX format]().
+The same tables in LaTeX format [here]().
+
+| Metric          | Bacterial genome | Bacterial plasmid |
+| --------------- | ---------------- | ----------------- |
+| Length          | 4,537,250        | 4,038             |
+| N50             | 4,537,250        | 4,038             |
+| Longest segment | 4,537,250        | 4,038             |
+
+The same tables in LaTeX format [here]().

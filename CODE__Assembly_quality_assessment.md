@@ -1,13 +1,13 @@
-### Assembly quality assessment
+### Read statistics and assembly quality
 
-#### Table - Part 1: Extract read counts from sequence files
+#### Tables - Part 1: Extract read counts from sequence files
 Foo bar baz
 
 ```bash
 bash SCRIPT__get_read_counts.sh
 ```
 
-#### Table - Part 2: Extract assembly stats from Unicycler log
+#### Tables - Part 2: Extract assembly stats from Unicycler log
 Foo bar baz
 
 ```bash
