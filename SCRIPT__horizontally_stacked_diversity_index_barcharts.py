@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import re
 from pathlib import Path
 from typing import Dict, List
 
@@ -36,6 +37,12 @@ from matplotlib.ticker import MaxNLocator
 
 START_METRIC = "Number of ASVs"
 SUPERTITLE = "(b) Diversity indices"
+
+
+def normalize_metric_key(key: str) -> str:
+    # Logs may encode sample IDs in metric labels, e.g.:
+    # "Shannon diversity (sampleA)". Normalize to a shared metric name.
+    return re.sub(r"\s*\([^)]*\)$", "", key).strip()
 
 
 def parse_metadata(metadata_path: Path) -> tuple[Dict[str, str], List[str]]:
@@ -83,7 +90,7 @@ def parse_summary_file(file_path: Path) -> Dict[str, float]:
                 continue
 
             key, value = line.split(":", 1)
-            key = key.strip()
+            key = normalize_metric_key(key.strip())
             value = value.strip()
 
             try:
@@ -107,7 +114,7 @@ def detect_metric_order(file_path: Path) -> List[str]:
                 continue
 
             key, value = line.split(":", 1)
-            key = key.strip()
+            key = normalize_metric_key(key.strip())
             value = value.strip()
 
             if key == START_METRIC:
@@ -121,7 +128,8 @@ def detect_metric_order(file_path: Path) -> List[str]:
             except ValueError:
                 continue
 
-            metrics.append(key)
+            if key not in metrics:
+                metrics.append(key)
 
     return metrics
 
