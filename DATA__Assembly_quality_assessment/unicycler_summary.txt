@@ -1,35 +1,36 @@
-Bridged assembly graph (2025-10-24 15:13:10)
-Component   Segments   Links   Length      N50         Longest segment   Status  
-    total          3       3   4,546,674   4,537,250         4,537,250           
-        1          1       1   4,537,250   4,537,250         4,537,250   complete
-        2          1       1       5,386       5,386             5,386   complete
-        3          1       1       4,038       4,038             4,038   complete
+Bridged assembly graph (2026-05-17 18:29:26)
 
-Read alignment summary (2025-10-24 15:12:42)
+Component   Segments   Links   Length      N50         Longest segment   Status
+    total          2       2   4,541,166   4,537,128         4,537,128
+        1          1       1   4,537,128   4,537,128         4,537,128   complete
+        2          1       1       4,038       4,038             4,038   complete
+
+Read alignment summary (2026-05-17 18:28:59)
+
 Total read count:            131,142
-Fully aligned reads:          75,665
-Partially aligned reads:       2,772
-Unaligned reads:              52,705
-Total bases aligned:     386,866,030 bp
+Fully aligned reads:          75,614
+Partially aligned reads:       2,821
+Unaligned reads:              52,707
+Total bases aligned:     386,821,854 bp
 Mean alignment identity:          87.1%
 
-K-mer   Contigs   Dead ends   Score   
-   27     4,758          42   4.78e-06
-   53     1,090          17   4.83e-05
-   71       556          14   1.12e-04
-   87       335          10   2.49e-04
-   99       236           4   7.06e-04
-  111       163           2   1.53e-03
-  119       139           2   1.80e-03
-  127       112           2   2.23e-03 <-best
+K-mer   Contigs   Dead ends   Score
+   27     4,767          39   5.12e-06
+   53     1,089          17   4.83e-05
+   71       562          20   8.09e-05
+   87       333           8   3.00e-04
+   99       235           4   7.09e-04
+  111       162           2   1.54e-03
+  119       138           2   1.81e-03
+  127       111           2   2.25e-03 <-best
 
-Read depth filter: removed 6891 contigs totalling 2909284 bp
+Read depth filter: removed 5298 contigs totalling 2217563 bp
 
 Merging segments into unitigs:
   1 circular unitig
-  12 linear unitigs
-  total size = 4,568,645 bp
+  9 linear unitigs
+  total size = 4,554,862 bp
 
-Saving /homes/mgruenstaeudl/work/df/655e18ffe851e4c2245bc5e00a9562/results/004_long_read_assembly.gfa
-Saving /homes/mgruenstaeudl/work/df/655e18ffe851e4c2245bc5e00a9562/results/assembly.gfa
-Saving /homes/mgruenstaeudl/work/df/655e18ffe851e4c2245bc5e00a9562/results/assembly.fasta
+Saving /homes/mgruenstaeudl/hybrid_assembly/work/4e/565132767e3d7902db99ec68f2027c/results/004_long_read_assembly.gfa
+Saving /homes/mgruenstaeudl/hybrid_assembly/work/4e/565132767e3d7902db99ec68f2027c/results/assembly.gfa
+Saving /homes/mgruenstaeudl/hybrid_assembly/work/4e/565132767e3d7902db99ec68f2027c/results/assembly.fasta

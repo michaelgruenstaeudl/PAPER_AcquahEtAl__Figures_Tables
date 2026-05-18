@@ -1,49 +1,48 @@
 Short-read alignment summary
 ============================
 
-16863002 + 0 in total (QC-passed reads + QC-failed reads)
-16835042 + 0 primary
+13860849 + 0 in total (QC-passed reads + QC-failed reads)
+13848038 + 0 primary
 0 + 0 secondary
-27960 + 0 supplementary
+12811 + 0 supplementary
 0 + 0 duplicates
 0 + 0 primary duplicates
-16545153 + 0 mapped (98.12% : N/A)
-16517193 + 0 primary mapped (98.11% : N/A)
-16835042 + 0 paired in sequencing
-8417521 + 0 read1
-8417521 + 0 read2
-16461424 + 0 properly paired (97.78% : N/A)
-16501446 + 0 with itself and mate mapped
-15747 + 0 singletons (0.09% : N/A)
-302 + 0 with mate mapped to a different chr
-297 + 0 with mate mapped to a different chr (mapQ>=5)
+13640999 + 0 mapped (98.41% : N/A)
+13628188 + 0 primary mapped (98.41% : N/A)
+13848038 + 0 paired in sequencing
+6924019 + 0 read1
+6924019 + 0 read2
+13607458 + 0 properly paired (98.26% : N/A)
+13625156 + 0 with itself and mate mapped
+3032 + 0 singletons (0.02% : N/A)
+10 + 0 with mate mapped to a different chr
+10 + 0 with mate mapped to a different chr (mapQ>=5)
 
 Per-contig mapping summary
 ==========================
 
-Limnothrix_Unicycler_1	4537250	15841106	15228
-Limnothrix_Unicycler_2	5386	621472	448
-Limnothrix_Unicycler_3	4038	82575	71
-*	0	0	302102
+Limnothrix_Unicycler_1	4537128	13569912	3022
+Limnothrix_Unicycler_2	4038	71087	10
+*	0	0	216818
 
 Interpretation
 ==============
 
 Key observations
-- 16545153 mapped (98.12%): nearly all Illumina reads map back to the assembly.
-- 16461424 properly paired (97.78%): pairing and orientation are highly consistent with the assembly structure.
+- 13640999 mapped (98.41%): nearly all Illumina reads map back to the assembly.
+- 13607458 properly paired (98.26%): pairing and orientation are highly consistent with the assembly structure.
 - 0 duplicates: duplicate marking is not present or no duplicates were reported in this BAM.
-- 15747 singletons (0.09%): very few discordant pair mappings.
-- 302 reads with mate on a different contig (297 at mapQ>=5): low structural ambiguity signal.
+- 3032 singletons (0.02%): very few discordant pair mappings.
+- 10 reads with mate on a different contig (10 at mapQ>=5): low structural ambiguity signal.
 
 Main contig
 - Primary contig by mapped read support: Limnothrix_Unicycler_1
-- Length: 4537250 bp
-- Mapped reads: 15841106
-- Approximate coverage (assuming 150 bp reads): 523.70x
+- Length: 4537128 bp
+- Mapped reads: 13569912
+- Approximate coverage (assuming 150 bp reads): 448.63x
 
 Unmapped reads
-- Unmapped reads: 302102 (1.79% of mapped+unmapped in idxstats).
+- Unmapped reads: 216818 (1.56% of mapped+unmapped in idxstats).
 - A small unmapped fraction is expected and can reflect residual adapters, low-quality bases, contamination, repetitive regions, or sequence heterogeneity.
 
 Overall interpretation

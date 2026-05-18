@@ -2,11 +2,11 @@
 
 set -euo pipefail
 
-ASSEMBLY_GZ="output/work/df/655e18ffe851e4c2245bc5e00a9562/results/Limnothrix_Unicycler.fna.gz"
+ASSEMBLY_GZ="output/work/4e/565132767e3d7902db99ec68f2027c/results/Limnothrix_Unicycler.fna.gz"
 ASSEMBLY="Limnothrix_Unicycler.fna"
 
-R1="input/Illumina_filt_R1_paired.fastq.gz"
-R2="input/Illumina_filt_R2_paired.fastq.gz"
+R1="output/work/4e/565132767e3d7902db99ec68f2027c/Limnothrix_Unicycler_R1.fastq.gz"
+R2="output/work/4e/565132767e3d7902db99ec68f2027c/Limnothrix_Unicycler_R2.fastq.gz"
 
 OUT="short_read_alignment_summary.txt"
 BAM="short_reads_on_assembly.bam"
