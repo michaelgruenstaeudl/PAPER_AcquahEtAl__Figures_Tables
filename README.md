@@ -60,21 +60,22 @@ The same table in LaTeX format [here](TABLES/TABLE_Custom_PCR_primers_for_genomi
 #### Tables: Read statistics and assessment of assembly quality
 The code for extracting read statistics and assessing the quality of the assembly process is found [here](CODE__Assembly_quality_assessment.md). 
 
-| Stage                                              | Illumina (R1; R2)                      | Oxford Nanopore   |
-| -------------------------------------------------- | -------------------------------------- | ----------------- |
-| Reads pre-QC                                       | 8,581,010; 8,581,010                   | 545,128           |
-| Reads post-QC (% of pre-QC)                        | 8,417,521 (98.09%); 8,417,521 (98.09%) | 131,458 (24.12%)  |
-| Avg. read length post-QC (bp)                      | 148.3; 146.9                           | 4,527.4           |
-| Fully mapping (paired) reads (% of post-QC reads)  | 8,230,712 (97.78%)                     | 78,437 (57.56%)   |
-| Coverage of bacterial genome                       |                                        |                   |
-| Coverage of bacterial plasmid                      |                                        |                   |
+| Stage                                              | Illumina MiSeq - read pairs            | Oxford Nanopore - single reads |
+| -------------------------------------------------- | -------------------------------------- | ------------------------------ |
+| Pairs/reads pre-QC                                 | 8,581,010                              | 545,128                        |
+| Pairs/reads post-QC (% of pre-QC)                  | 8,417,521 (98.09%)                     | 131,458 (24.12%)               |
+| Avg. pair/read length post-QC (bp)                 | 295.2                                  | 4,527.4                        |
+| Fully mapped pairs/reads (% of post-QC)            | 6,803,729 (80.83%)                     | 75,614 (57.52%)                |
+| Coverage of bacterial genome                       |                                        |                                |
+| Coverage of bacterial plasmid                      |                                        |                                |
 
 The same tables in LaTeX format [here]().
 
 | Metric          | Bacterial genome | Bacterial plasmid |
 | --------------- | ---------------- | ----------------- |
-| Length          | 4,537,250        | 4,038             |
-| N50             | 4,537,250        | 4,038             |
-| Longest segment | 4,537,250        | 4,038             |
+| Length          | 4,537,128        | 4,038             |
+| N50             | 4,537,128        | 4,038             |
+| Longest segment | 4,537,128        | 4,038             |
+Note: The genome lengths represent the raw contigs, not the circularized final lengths.
 
 The same tables in LaTeX format [here]().
