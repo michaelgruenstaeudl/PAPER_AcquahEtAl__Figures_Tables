@@ -82,6 +82,8 @@ The same tables in LaTeX format [here](TABLES/TABLE_Read_statistics_Illumina_and
 | QUAST: Avg. cov. depth (Illumina; ONT) | 416X; 84X        | 2402X; 295X       |
 | QUAST: Cov. >= 1X (% - Illumina; ONT)  | 100%; 100%       | 100%; 100%        |
 | QUAST: Cov. >= 10X (% - Illumina; ONT) | 100%; 100%       | 100%; 100%        |
+| CheckM2: Completeness (%)              | 99.99%           | n.a.              |
+| CheckM2: Contamination (%)             | 0.47%            | n.a.              |
 
 Note: The first three rows were inferred based on the raw contigs, the other rows based on the corrected, circularized genomes. The analyses via Merqury only took into account the Illumina reads and used a kmer of 21 for the bacterial and a kmer of 17 for the plasmid genome. Abbreviations used: Cov.=coverage; Est.=Estimated; QV=Quality value.
 
