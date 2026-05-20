@@ -67,20 +67,22 @@ The code for extracting read statistics and assessing the quality of the assembl
 | Avg. pair/read length post-QC (bp)                 | 295.2                                  | 4,527.4                        |
 | Fully mapped pairs/reads (% of post-QC)            | 6,803,729 (80.83%)                     | 75,614 (57.52%)                |
 
-The same tables in LaTeX format [here]().
+The same tables in LaTeX format [here](TABLES/TABLE_Read_statistics_Illumina_and_OxfordNanopore.tex).
 
-| Metric                      | Bacterial genome | Bacterial plasmid |
-| --------------------------- | ---------------- | ----------------- |
-| Length                      | 4,537,128        | 4,038             |
-| N50                         | 4,537,128        | 4,038             |
-| L50                         | 1                | 1                 |
-| Longest segment             | 4,537,128        | 4,038             |
-| Merqury - Consensus QV      | 75.0             | +inf (=n.a.)      |
-| Merqury - Est. error rate   | 3.15 x 10^-8     | 0                 |
-| Merqury - K-mer completen.  | 99.53%           | 0.089%            |
-| QUAST - Avg. coverage depth |                  |                   |
-| QUAST - Coverage >= 1x (%)  |                  |                   |
+| Quality metric                         | Bacterial genome | Bacterial plasmid |
+| -------------------------------------- | ---------------- | ----------------- |
+| Length (bp)                            | 4,537,128        | 4,038             |
+| N50                                    | 4,537,128        | 4,038             |
+| L50                                    | 1                | 1                 |
+| Longest segment (bp)                   | 4,537,128        | 4,038             |
+| GC content (%)                         | 55.26%           | 49.33%            |
+| Merqury: Consensus QV                  | 29.81            | 40.23             |
+| Merqury: Est. error rate               | 1.04e-03         | 9.49e-05          |
+| Merqury: K-mer completeness (%)        | 96.68%           | 94.51%            |
+| QUAST: Avg. cov. depth (Illumina; ONT) | 416X; 84X        | 2402X; 295X       |
+| QUAST: Cov. >= 1X (% - Illumina; ONT)  | 100%; 100%       | 100%; 100%        |
+| QUAST: Cov. >= 10X (% - Illumina; ONT) | 100%; 100%       | 100%; 100%        |
 
-Note: The first three rows were inferred based on the raw contigs, the other rows based on the corrected, circularized genomes. The software Merqury only took into account the Illumina reads. Abbreviations used: Est.=Estimated; Completen.=completeness;  QV=Quality value.
+Note: The first three rows were inferred based on the raw contigs, the other rows based on the corrected, circularized genomes. The analyses via Merqury only took into account the Illumina reads and used a kmer of 21 for the bacterial and a kmer of 17 for the plasmid genome. Abbreviations used: Cov.=coverage; Est.=Estimated; QV=Quality value.
 
-The same tables in LaTeX format [here]().
+The same tables in LaTeX format [here](TABLES/TABLE_Assembly_quality_metrics.tex).

@@ -1,0 +1,59 @@
+Merqury report: bactGenome_Illumina_MERQURY_report_2026-05-20
+Genome: bactGenome
+Assembly: /homes/mgruenstaeudl/HorseThiefReservoir_Fall2024/02b_backmapping/FinalAssembly_bactGenome_corrected.fasta
+Original R1: /homes/mgruenstaeudl/HorseThiefReservoir_Fall2024/02b_backmapping/Limnothrix_Unicycler_R1.fastq.gz
+Original R2: /homes/mgruenstaeudl/HorseThiefReservoir_Fall2024/02b_backmapping/Limnothrix_Unicycler_R2.fastq.gz
+Mapped R1: mapped_reads/bactGenome.mapped.R1.fastq.gz
+Mapped R2: mapped_reads/bactGenome.mapped.R2.fastq.gz
+Read k-mer size: 21
+
+=== Mapping summary ===
+13570106 + 0 in total (QC-passed reads + QC-failed reads)
+13558213 + 0 primary
+0 + 0 secondary
+11893 + 0 supplementary
+0 + 0 duplicates
+0 + 0 primary duplicates
+13570106 + 0 mapped (100.00% : N/A)
+13558213 + 0 primary mapped (100.00% : N/A)
+13558213 + 0 paired in sequencing
+6778636 + 0 read1
+6779577 + 0 read2
+13538742 + 0 properly paired (99.86% : N/A)
+13555152 + 0 with itself and mate mapped
+3061 + 0 singletons (0.02% : N/A)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+
+=== Consensus QV / error rate ===
+FinalAssembly_bactGenome_corrected	98452	4536393	29.8118	0.0010443
+
+=== Explicit qv.sh output ===
+FinalAssembly_bactGenome_corrected	98452	4536393	29.8118	0.0010443
+
+=== K-mer completeness ===
+FinalAssembly_bactGenome_corrected	all	4373477	4523560	96.6822
+
+=== Main output files ===
+total 6.3M
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   63 May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.completeness.stats
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   43 May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.dist_only.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   18 May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.FinalAssembly_bactGenome_corrected.only.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   64 May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.FinalAssembly_bactGenome_corrected.qv
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users 3.7K May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.FinalAssembly_bactGenome_corrected.spectra-cn.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   67 May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.qv
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   64 May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.qv_only.FinalAssembly_bactGenome_corrected.qv
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   67 May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.qv_only.qv
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users    2 May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.reads.filt
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users 1.7K May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.reads.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   34 May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.reads.hist.ploidy
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users  30M May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.reads.meryl
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users  12K May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.spectra-asm.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users 1.4K May 20 14:20 bactGenome_Illumina_MERQURY_report_2026-05-20.summary.txt
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users 106K May 20 14:20 FinalAssembly_bactGenome_corrected.0.meryl
+lrwxrwxrwx  1 mgruenstaeudl mgruenstaeudl_users  106 May 20 14:20 FinalAssembly_bactGenome_corrected.fasta -> /homes/mgruenstaeudl/HorseThiefReservoir_Fall2024/02b_backmapping/FinalAssembly_bactGenome_corrected.fasta
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users  29M May 20 14:20 FinalAssembly_bactGenome_corrected.meryl
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users 4.5M May 20 14:20 FinalAssembly_bactGenome_corrected_only.bed
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users 1.8M May 20 14:20 FinalAssembly_bactGenome_corrected_only.wig
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users  40K May 20 14:20 logs
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users 2.2G May 20 14:19 mapped_reads

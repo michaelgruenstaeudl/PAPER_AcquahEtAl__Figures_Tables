@@ -1,0 +1,21 @@
+All statistics are based on contigs of size >= 500 bp, unless otherwise noted (e.g., "# contigs (>= 0 bp)" and "Total length (>= 0 bp)" include all contigs).
+
+Assembly                       FinalAssembly_bactGenome_corrected
+# total reads                  13848038                          
+# left                         6924019                           
+# right                        6924019                           
+# mapped                       13570104                          
+Mapped (%)                     97.99                             
+# properly paired              13538742                          
+Properly paired (%)            97.77                             
+# singletons                   3061                              
+Singletons (%)                 0.02                              
+# misjoint mates               0                                 
+Misjoint mates (%)             0.0                               
+Avg. coverage depth            416                               
+Coverage >= 1x (%)             100.0                             
+Coverage >= 5x (%)             100.0                             
+Coverage >= 10x (%)            100.0                             
+Reference mapped (%)           -                                 
+Reference properly paired (%)  -                                 
+Reference avg. coverage depth  -                                 

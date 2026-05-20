@@ -1,0 +1,59 @@
+Merqury report: plasmid_Illumina_MERQURY_report_2026-05-20
+Genome: plasmid
+Assembly: /homes/mgruenstaeudl/HorseThiefReservoir_Fall2024/02b_backmapping/FinalAssembly_plasmid_corrected.fasta
+Original R1: /homes/mgruenstaeudl/HorseThiefReservoir_Fall2024/02b_backmapping/Limnothrix_Unicycler_R1.fastq.gz
+Original R2: /homes/mgruenstaeudl/HorseThiefReservoir_Fall2024/02b_backmapping/Limnothrix_Unicycler_R2.fastq.gz
+Mapped R1: mapped_reads/plasmid.mapped.R1.fastq.gz
+Mapped R2: mapped_reads/plasmid.mapped.R2.fastq.gz
+Read k-mer size: 21
+
+=== Mapping summary ===
+71288 + 0 in total (QC-passed reads + QC-failed reads)
+69967 + 0 primary
+0 + 0 secondary
+1321 + 0 supplementary
+0 + 0 duplicates
+0 + 0 primary duplicates
+71288 + 0 mapped (100.00% : N/A)
+69967 + 0 primary mapped (100.00% : N/A)
+69967 + 0 paired in sequencing
+34979 + 0 read1
+34988 + 0 read2
+68910 + 0 properly paired (98.49% : N/A)
+69952 + 0 with itself and mate mapped
+15 + 0 singletons (0.02% : N/A)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+
+=== Consensus QV / error rate ===
+FinalAssembly_plasmid_corrected	8	4018	40.2273	9.49015e-05
+
+=== Explicit qv.sh output ===
+FinalAssembly_plasmid_corrected	8	4018	40.2273	9.49015e-05
+
+=== K-mer completeness ===
+FinalAssembly_plasmid_corrected	all	4010	4243	94.5086
+
+=== Main output files ===
+total 7.5K
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users  97K May 20 14:12 FinalAssembly_plasmid_corrected.0.meryl
+lrwxrwxrwx  1 mgruenstaeudl mgruenstaeudl_users  103 May 20 14:12 FinalAssembly_plasmid_corrected.fasta -> /homes/mgruenstaeudl/HorseThiefReservoir_Fall2024/02b_backmapping/FinalAssembly_plasmid_corrected.fasta
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users  47K May 20 14:12 FinalAssembly_plasmid_corrected.meryl
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users    0 May 20 14:12 FinalAssembly_plasmid_corrected_only.bed
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users    0 May 20 14:12 FinalAssembly_plasmid_corrected_only.wig
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users  16K May 20 14:12 logs
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users 5.4M May 20 14:12 mapped_reads
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   54 May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.completeness.stats
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   36 May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.dist_only.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   12 May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.FinalAssembly_plasmid_corrected.only.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users    0 May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.FinalAssembly_plasmid_corrected.qv
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users  212 May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.FinalAssembly_plasmid_corrected.spectra-cn.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   59 May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.qv
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users    0 May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.qv_only.FinalAssembly_plasmid_corrected.qv
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   59 May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.qv_only.qv
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users    2 May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.reads.filt
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   95 May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.reads.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   34 May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.reads.hist.ploidy
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users  32K May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.reads.meryl
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users  664 May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.spectra-asm.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users 1.4K May 20 14:12 plasmid_Illumina_MERQURY_report_2026-05-20.summary.txt
