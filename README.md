@@ -71,11 +71,15 @@ The code for extracting read statistics and assessing the quality of the assembl
 
 The same tables in LaTeX format [here]().
 
-| Metric          | Bacterial genome | Bacterial plasmid |
-| --------------- | ---------------- | ----------------- |
-| Length          | 4,537,128        | 4,038             |
-| N50             | 4,537,128        | 4,038             |
-| Longest segment | 4,537,128        | 4,038             |
-Note: The genome lengths represent the raw contigs, not the circularized final lengths.
+| Metric                    | Bacterial genome | Bacterial plasmid |
+| ------------------------- | ---------------- | ----------------- |
+| Length                    | 4,537,128        | 4,038             |
+| N50                       | 4,537,128        | 4,038             |
+| Longest segment           | 4,537,128        | 4,038             |
+| Merqury - Consensus QV    | 75.0             |                   |
+| Merqury - Est. error rate | 3.15 x 10^-8     |                   |
+| Merqury - K-mer completen.| 99.53%           |                   |
+
+Note: The first three rows were inferred based on the raw contigs, the other rows based on the corrected, circularized genomes. The software Merqury only took into account the Illumina reads. Abbreviations used: Est.=Estimated; Completen.=completeness;  QV=Quality value.
 
 The same tables in LaTeX format [here]().

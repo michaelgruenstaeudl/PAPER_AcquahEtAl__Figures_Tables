@@ -1,0 +1,36 @@
+Merqury report: bactGenome_Illumina_MERQURY_report_2026-05-19
+Genome: bactGenome
+Assembly: /homes/mgruenstaeudl/HorseThiefReservoir_Fall2024/02b_backmapping/FinalAssembly_bactGenome_corrected.fasta
+Read k-mer size: 21
+
+=== Consensus QV / error rate ===
+FinalAssembly_bactGenome_corrected	3	4536393	75.0181	3.14914e-08
+
+=== Explicit qv.sh output ===
+FinalAssembly_bactGenome_corrected	3	4536393	75.0181	3.14914e-08
+
+=== K-mer completeness ===
+FinalAssembly_bactGenome_corrected	all	4475709	4496793	99.5311
+
+=== Main output files ===
+total 268K
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   63 May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.completeness.stats
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   39 May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.dist_only.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   12 May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.FinalAssembly_bactGenome_corrected.only.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users    0 May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.FinalAssembly_bactGenome_corrected.qv
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users  67K May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.FinalAssembly_bactGenome_corrected.spectra-cn.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   65 May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.qv
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users    0 May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.qv_only.FinalAssembly_bactGenome_corrected.qv
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   65 May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.qv_only.qv
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users    3 May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.reads.filt
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users  28K May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.reads.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users   37 May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.reads.hist.ploidy
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users 130M May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.reads.meryl
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users 168K May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.spectra-asm.hist
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users  532 May 19 18:12 bactGenome_Illumina_MERQURY_report_2026-05-19.summary.txt
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users  94K May 19 18:12 FinalAssembly_bactGenome_corrected.0.meryl
+lrwxrwxrwx  1 mgruenstaeudl mgruenstaeudl_users  106 May 19 18:12 FinalAssembly_bactGenome_corrected.fasta -> /homes/mgruenstaeudl/HorseThiefReservoir_Fall2024/02b_backmapping/FinalAssembly_bactGenome_corrected.fasta
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users 4.4M May 19 18:12 FinalAssembly_bactGenome_corrected.meryl
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users    0 May 19 18:12 FinalAssembly_bactGenome_corrected_only.bed
+-rw-r--r--+ 1 mgruenstaeudl mgruenstaeudl_users    0 May 19 18:12 FinalAssembly_bactGenome_corrected_only.wig
+drwxr-xr-x+ 2 mgruenstaeudl mgruenstaeudl_users 7.4K May 19 18:12 logs
