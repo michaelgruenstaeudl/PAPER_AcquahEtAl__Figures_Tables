@@ -66,19 +66,20 @@ The code for extracting read statistics and assessing the quality of the assembl
 | Pairs/reads post-QC (% of pre-QC)                  | 8,417,521 (98.09%)                     | 131,458 (24.12%)               |
 | Avg. pair/read length post-QC (bp)                 | 295.2                                  | 4,527.4                        |
 | Fully mapped pairs/reads (% of post-QC)            | 6,803,729 (80.83%)                     | 75,614 (57.52%)                |
-| Coverage of bacterial genome                       |                                        |                                |
-| Coverage of bacterial plasmid                      |                                        |                                |
 
 The same tables in LaTeX format [here]().
 
-| Metric                    | Bacterial genome | Bacterial plasmid |
-| ------------------------- | ---------------- | ----------------- |
-| Length                    | 4,537,128        | 4,038             |
-| N50                       | 4,537,128        | 4,038             |
-| Longest segment           | 4,537,128        | 4,038             |
-| Merqury - Consensus QV    | 75.0             |                   |
-| Merqury - Est. error rate | 3.15 x 10^-8     |                   |
-| Merqury - K-mer completen.| 99.53%           |                   |
+| Metric                      | Bacterial genome | Bacterial plasmid |
+| --------------------------- | ---------------- | ----------------- |
+| Length                      | 4,537,128        | 4,038             |
+| N50                         | 4,537,128        | 4,038             |
+| L50                         | 1                | 1                 |
+| Longest segment             | 4,537,128        | 4,038             |
+| Merqury - Consensus QV      | 75.0             | +inf (=n.a.)      |
+| Merqury - Est. error rate   | 3.15 x 10^-8     | 0                 |
+| Merqury - K-mer completen.  | 99.53%           | 0.089%            |
+| QUAST - Avg. coverage depth |                  |                   |
+| QUAST - Coverage >= 1x (%)  |                  |                   |
 
 Note: The first three rows were inferred based on the raw contigs, the other rows based on the corrected, circularized genomes. The software Merqury only took into account the Illumina reads. Abbreviations used: Est.=Estimated; Completen.=completeness;  QV=Quality value.
 
