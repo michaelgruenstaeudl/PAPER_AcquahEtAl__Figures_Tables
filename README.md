@@ -9,7 +9,7 @@ The analysis files of the data visualized here can be found on [Zenodo.org](http
 
 #### Figure Photo collage
 ```bash
-bash SCRIPT_arrange_subimages_for_photo_collage.sh DATA__Subimages_for_PhotoCollage/ VIZ__PhotoCollage/Figure1.jpg
+bash SCRIPT_arrange_subimages_for_photo_collage.sh DATA__Subimages_for_PhotoCollage/ VIZ__PhotoCollage/PhotoCollage.jpg
 ```
 ![Photo collage of sampling at HorseThief Reservoir](VIZ__PhotoCollage/Figure1.jpg)
 
