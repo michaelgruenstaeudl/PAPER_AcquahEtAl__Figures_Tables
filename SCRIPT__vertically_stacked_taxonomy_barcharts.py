@@ -50,6 +50,12 @@ TaxonKey = Tuple[str, str, str, str, str]  # phylum, class, order, family, genus
 CYANO_TOKEN = "cyanobacter"
 
 
+def normalize_sample_name(sample_name: str) -> str:
+    if sample_name.strip().casefold() == "filtered lake water":
+        return "original bloom water"
+    return sample_name
+
+
 def parse_taxonomy_field(taxonomy: str) -> Dict[str, str]:
     parsed: Dict[str, str] = {}
 
@@ -113,7 +119,7 @@ def read_metadata(metadata_path: Path) -> Dict[str, str]:
                 )
 
             file_name = parts[0].strip()
-            sample_name = parts[1].strip()
+            sample_name = normalize_sample_name(parts[1].strip())
 
             if not file_name:
                 raise ValueError(
@@ -148,7 +154,7 @@ def read_metadata_order(metadata_path: Path) -> list[str]:
             if len(parts) < 2:
                 continue
 
-            sample_name = parts[1].strip()
+            sample_name = normalize_sample_name(parts[1].strip())
             if sample_name:
                 order.append(sample_name)
 
@@ -291,6 +297,7 @@ def collect_tables(
                 or metadata_map.get(file_path.stem)
                 or sample_label
             )
+        sample_label = normalize_sample_name(sample_label)
 
         all_tables[sample_label] = percentages
 
@@ -478,13 +485,16 @@ def draw_stacked_barh(
     ax.set_yticks(y_positions)
     ax.set_yticklabels(y_labels)
 
-    ax.set_xlabel("Relative abundance (%)")
+    if rank == "g":
+        ax.set_xlabel("Relative abundance (%)")
+    else:
+        ax.set_xlabel("")
     ax.set_xlim(0, 100)
 
-    title = f"{RANK_LABELS[rank]} composition (threshold < {threshold:g}% -> Other)"
+    title = f"{RANK_LABELS[rank]} composition"
     ax.set_title(title)
 
-    legend_fontsize = float(plt.rcParams.get("font.size", 10.0)) * (2.0 / 3.0)
+    legend_fontsize = float(plt.rcParams.get("font.size", 10.0)) * 0.85
     legend_labelspacing = 0.5 * (2.0 / 3.0)
 
     labels = [str(label) for label in df.columns]

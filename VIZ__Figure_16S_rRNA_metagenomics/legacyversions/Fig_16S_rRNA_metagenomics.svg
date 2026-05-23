@@ -1101,7 +1101,7 @@ z
       </g>
      </g>
      <g id="text_10">
-      <!-- Filtered lake water -->
+    <!-- Original bloom water -->
       <g transform="translate(16.310937 43.515414) scale(0.1 -0.1)">
        <defs>
         <path id="DejaVuSans-46" d="M 628 4666 
@@ -2307,7 +2307,7 @@ z
       </g>
      </g>
      <g id="text_29">
-      <!-- Filtered lake water -->
+    <!-- Original bloom water -->
       <g transform="translate(16.310937 202.095414) scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-46"/>
        <use xlink:href="#DejaVuSans-69" transform="translate(50.269531 0)"/>
@@ -3865,7 +3865,7 @@ z
       </g>
      </g>
      <g id="text_58">
-      <!-- Filtered lake water -->
+    <!-- Original bloom water -->
       <g transform="translate(16.310937 360.675414) scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-46"/>
        <use xlink:href="#DejaVuSans-69" transform="translate(50.269531 0)"/>
@@ -5660,7 +5660,7 @@ z
       </g>
      </g>
      <g id="text_96">
-      <!-- Filtered lake water -->
+    <!-- Original bloom water -->
       <g transform="translate(16.310937 519.255414) scale(0.1 -0.1)">
        <use xlink:href="#DejaVuSans-46"/>
        <use xlink:href="#DejaVuSans-69" transform="translate(50.269531 0)"/>

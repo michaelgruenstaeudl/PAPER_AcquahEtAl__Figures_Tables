@@ -59,7 +59,7 @@ scale2 = target_width / w2
 
 new_h1 = h1 * scale1
 new_h2 = h2 * scale2
-title_band = 30
+title_band = 12
 
 section1_y = 0
 section1_image_y = section1_y + title_band
@@ -71,6 +71,7 @@ combined_height = section2_image_y + new_h2
 
 combined_svg = "${OUTDIR}/Fig_16S_rRNA__COMBINED.svg"
 combined_png = "${OUTDIR}/Fig_16S_rRNA__COMBINED.png"
+combined_pdf = "${OUTDIR}/Fig_16S_rRNA__COMBINED.pdf"
 
 Figure(
     f"{target_width}px",
@@ -78,8 +79,8 @@ Figure(
 
     SVG(svg1).scale(scale1).move(0, section1_image_y),
     SVG(svg2).scale(scale2).move(0, section2_image_y),
-    Text("(a) Genetic composition", 12, section1_y + 22, size=22, weight="bold"),
-    Text("(b) Diversity indices", 12, section2_y + 22, size=22, weight="bold")
+    Text("A", 0, section1_image_y + 12, size=20, weight="bold"),
+    Text("B", 0, section2_image_y + 12, size=20, weight="bold")
 
 ).save(combined_svg)
 
@@ -102,6 +103,9 @@ tree.write(combined_svg, encoding="utf-8", xml_declaration=True)
 
 # Also enforce white when rasterizing to PNG.
 cairosvg.svg2png(url=combined_svg, write_to=combined_png, background_color="white")
+
+# Save a vector PDF copy.
+cairosvg.svg2pdf(url=combined_svg, write_to=combined_pdf)
 
 PY
 ```

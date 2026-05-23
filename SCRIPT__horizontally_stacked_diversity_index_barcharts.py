@@ -20,7 +20,6 @@ Behavior
 - Uses all numeric metrics starting at and including "Number of ASVs"
 - Creates one bar chart per selected metric across all samples
 - Arranges subplots horizontally in a single row
-- Adds figure supertitle "(b) Diversity indices"
 """
 
 from __future__ import annotations
@@ -36,7 +35,12 @@ from matplotlib.ticker import MaxNLocator
 
 
 START_METRIC = "Number of ASVs"
-SUPERTITLE = "(b) Diversity indices"
+
+
+def normalize_sample_name(sample_name: str) -> str:
+    if sample_name.strip().casefold() == "filtered lake water":
+        return "original bloom water"
+    return sample_name
 
 
 def normalize_metric_key(key: str) -> str:
@@ -63,7 +67,7 @@ def parse_metadata(metadata_path: Path) -> tuple[Dict[str, str], List[str]]:
                 )
 
             file_name = row[0].strip()
-            sample_name = row[1].strip()
+            sample_name = normalize_sample_name(row[1].strip())
 
             if not file_name or not sample_name:
                 raise ValueError(
@@ -183,7 +187,7 @@ def collect_sample_metrics(
             raise ValueError(
                 f"{file_path} is missing in metadata mapping (file_name -> sample_name)."
             )
-        sample_name = mapped_name
+        sample_name = normalize_sample_name(mapped_name)
 
         sample_values[sample_name] = {metric: parsed[metric] for metric in metric_order}
 
@@ -241,14 +245,14 @@ def plot_horizontal_metric_panels(
             ax.set_xlim(0, metric_max + padding)
         else:
             ax.set_xlim(metric_min - padding, metric_max + padding)
-        ax.set_title(metric, fontsize=13)
+        ax.set_title(metric, fontsize=17)
         ax.grid(axis="x", linestyle=":", linewidth=0.7, alpha=0.5)
 
         if metric.strip().casefold() == "simpson diversity":
             ax.xaxis.set_major_locator(MaxNLocator(nbins=4))
 
         if idx == 0:
-            ax.tick_params(axis="y", labelsize=13)
+            ax.tick_params(axis="y", labelsize=17)
         else:
             ax.tick_params(axis="y", left=False, labelleft=False)
 
