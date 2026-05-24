@@ -31,7 +31,7 @@ The code for extracting read statistics and assessing the quality of the assembl
 
 The same tables in LaTeX format [here](TABLES/TABLE_Read_statistics_Illumina_and_OxfordNanopore.tex).
 
-| Quality metric                         | Bacterial genome | Bacterial plasmid |
+| Quality metric                         | Bacterial chromo | Plasmid           |
 | -------------------------------------- | ---------------- | ----------------- |
 | Length (bp)                            | 4,537,128        | 4,038             |
 | N50                                    | 4,537,128        | 4,038             |
@@ -41,13 +41,13 @@ The same tables in LaTeX format [here](TABLES/TABLE_Read_statistics_Illumina_and
 | Merqury: Consensus QV                  | 29.81            | 40.23             |
 | Merqury: Est. error rate               | 1.04e-03         | 9.49e-05          |
 | Merqury: K-mer completeness (%)        | 96.68%           | 94.51%            |
-| QUAST: Avg. cov. depth (Illumina; ONT) | 416X; 84X        | 2402X; 295X       |
-| QUAST: Cov. >= 1X (% - Illumina; ONT)  | 100%; 100%       | 100%; 100%        |
-| QUAST: Cov. >= 10X (% - Illumina; ONT) | 100%; 100%       | 100%; 100%        |
+| QUAST: Avg. cov. depth (Illumina; ON) | 416X; 84X        | 2402X; 295X       |
+| QUAST: Cov. >= 1X (% - Illumina; ON)  | 100%; 100%       | 100%; 100%        |
+| QUAST: Cov. >= 10X (% - Illumina; ON) | 100%; 100%       | 100%; 100%        |
 | CheckM2: Completeness (%)              | 99.99%           | n.a.              |
 | CheckM2: Contamination (%)             | 0.47%            | n.a.              |
 
-Note: The first three rows were inferred based on the raw contigs, the other rows based on the corrected, circularized genomes. The analyses via Merqury only took into account the Illumina reads and used a kmer of 21 for the bacterial and a kmer of 17 for the plasmid genome. Abbreviations used: Cov.=coverage; Est.=Estimated; QV=Quality value.
+Assembly statistics and quality assessment metrics for the complete bacterial chromosome and plasmid. The assembly size metrics (length, N50, L50, and longest segment length) were calculated from the initial raw contigs prior to circularization, whereas all remaining metrics were inferred from the final circularized assemblies. Merqury analyses were performed using Illumina reads only, with k-mer sizes of 21 for the bacterial chromosome and 17 for the plasmid. Abbreviations: Cov., coverage; QV, quality value; ON, Oxford Nanopore; n.a., not applicable.
 
 The same tables in LaTeX format [here](TABLES/TABLE_Assembly_quality_metrics.tex).
 
