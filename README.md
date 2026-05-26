@@ -39,15 +39,15 @@ The same tables in LaTeX format [here](TABLES/TABLE_Read_statistics_Illumina_and
 | Longest segment (bp)                   | 4,537,128        | 4,038             |
 | GC content (%)                         | 55.26%           | 49.33%            |
 | Merqury: Consensus QV                  | 29.81            | 40.23             |
-| Merqury: Est. error rate               | 1.04e-03         | 9.49e-05          |
+| Merqury: K-mer error rate              | 1.04e-03         | 9.49e-05          |
 | Merqury: K-mer completeness (%)        | 96.68%           | 94.51%            |
-| QUAST: Avg. cov. depth (Illumina; ON) | 416X; 84X        | 2402X; 295X       |
-| QUAST: Cov. >= 1X (% - Illumina; ON)  | 100%; 100%       | 100%; 100%        |
-| QUAST: Cov. >= 10X (% - Illumina; ON) | 100%; 100%       | 100%; 100%        |
+| QUAST: Avg. cov. depth (Illumina; ON)  | 416X; 84X        | 2402X; 295X       |
+| QUAST: Cov. >= 1X (% - Illumina; ON)   | 100%; 100%       | 100%; 100%        |
+| QUAST: Cov. >= 10X (% - Illumina; ON)  | 100%; 100%       | 100%; 100%        |
 | CheckM2: Completeness (%)              | 99.99%           | n.a.              |
 | CheckM2: Contamination (%)             | 0.47%            | n.a.              |
 
-Assembly statistics and quality assessment metrics for the complete bacterial chromosome and plasmid. The assembly size metrics (length, N50, L50, and longest segment length) were calculated from the initial raw contigs prior to circularization, whereas all remaining metrics were inferred from the final circularized assemblies. Merqury analyses were performed using Illumina reads only, with k-mer sizes of 21 for the bacterial chromosome and 17 for the plasmid. Abbreviations: Cov., coverage; QV, quality value; ON, Oxford Nanopore; n.a., not applicable.
+Assembly statistics and quality assessment metrics for the complete bacterial chromosome and plasmid. The assembly size metrics (length, N50, L50, and longest segment length) were calculated from the initial raw contigs prior to circularization; all remaining metrics were inferred from the final circularized assemblies. CheckM2 did not evaluate the plasmid genome because the molecule is too small to encode sufficient lineage-specific genes for gene set comparisons. Abbreviations: Cov., coverage; QV, quality value; ON, Oxford Nanopore; n.a., not applicable.
 
 The same tables in LaTeX format [here](TABLES/TABLE_Assembly_quality_metrics.tex).
 
