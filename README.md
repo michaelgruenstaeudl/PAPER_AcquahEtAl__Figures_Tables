@@ -11,7 +11,7 @@ The analysis files of the data visualized here can be found on [Zenodo.org](http
 ```bash
 bash SCRIPT__arrange_subimages_for_photo_collage.sh DATA__Subimages_for_PhotoCollage/ VIZ__PhotoCollage/PhotoCollage.jpg
 ```
-![Photo collage of sampling at HorseThief Reservoir](VIZ__PhotoCollage/Figure1.jpg)
+![Photo collage of sampling at HorseThief Reservoir](VIZ__PhotoCollage/PhotoCollage.jpg)
 
 #### Figure: 16S rRNA metagenomics
 The code for creating the following figure is displayed [here](CODE__Figure_16S_rRNA_metagenomics.md).
