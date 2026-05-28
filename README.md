@@ -51,6 +51,21 @@ Assembly statistics and quality assessment metrics for the complete bacterial ch
 
 The same tables in LaTeX format [here](TABLES/TABLE_Assembly_quality_metrics.tex).
 
+#### Figure: Genome map
+```bash
+pip install cairosvg
+
+python SCRIPT__generating_genome_map.py \
+    --large-svg ./DATA__GenomeMap/03_for_merging/Limnothrix_sp_HT2024_chromosome__GenomeMap__step3.svg \
+    --small-svg ./DATA__GenomeMap/03_for_merging/Limnothrix_sp_HT2024_plasmid__GenomeMap__step3.svg \
+    --output-prefix ./VIZ__GenomeMap/genome_map \
+    --large-size 4537128 \
+    --small-size 4038 \
+    --small-exaggeration 100
+```
+![Complete genome map](VIZ__GenomeMap/GenomeMap_withLegend_2026_05_27.png)
+
+
 #### Figure: Genomic inversion testing
 The code for creating the following figure is displayed [here](CODE__Genomic_inversion_testing.md).
 
