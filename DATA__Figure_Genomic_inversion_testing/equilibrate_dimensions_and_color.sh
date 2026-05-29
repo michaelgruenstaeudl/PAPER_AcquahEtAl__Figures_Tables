@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
 
 images=(
-    GEL_Inv1.jpeg
-    GEL_Inv3.jpeg
-    GEL_Inv5.jpeg
-    GEL_Inv6.jpeg
+    GEL_Inv2.jpeg
+    GEL_Inv4.jpeg
 )
 
 # Find minimum height
